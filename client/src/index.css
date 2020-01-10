@@ -6,8 +6,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(/img/bg6.jpg) ;
+  background: url(/img/wallp1.jpg) ;
   background-repeat: repeat;
+  background-size: 100%
 }
 
 code {

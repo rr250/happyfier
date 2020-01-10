@@ -1,44 +1,41 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {createProject} from '../../store/actions/projectActions'
 import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-export class CreateProject extends Component {
-    state={
-      title:'',
-      content:''
-    }
-  handleChange=(e)=>{
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  }  
-  handleSubmit=(e)=>{
-    e.preventDefault();
-    this.props.createProject(this.state)
-    this.props.history.push('/')
-  }  
-  
+export class NewTest extends Component {
   render() {
     const { auth }=this.props;
         if(!auth.uid)
             return<Redirect to='/signin'/>    
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit} className="white">
-            <h5 className="grey-text text-darken-3">Create new project</h5>
-            <div className="input-field">
-              <label htmlFor="title">Title</label>
-              <input type="text" id="title" onChange={this.handleChange}/>  
+      <div class="container">
+        <div class="col s12 m6 centre">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Depression</span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
             </div>
-            <div className="input-field">
-              <label htmlFor="content">Project Content</label>
-              <textarea type="text" id="content" className="materialize-textarea" onChange={this.handleChange}/>  
+            <div class="card-action grey lighten-4 grey-text">
+              <Link to={'/test/depression'}>
+                Depression Test
+              </Link>
             </div>
-            <div className="input-field">
-              <button className="btn yellow lighten-1 z-depth-2 blue-text text-darken-2">Create</button>  
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Anxiety</span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
             </div>
-        </form>  
+            <div class="card-action grey lighten-4 grey-text">
+              <Link to={'/test/anxiety'}>
+                Anxiety Test
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -48,13 +45,8 @@ const mapStateToProps=(state)=>{
   console.log(state);
   return{
       auth: state.firebase.auth
+
   }
 }
 
-const mapDispatchTOProps=(dispatch)=>{
-  return{
-    createProject:(project)=>dispatch(createProject(project))
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchTOProps)(CreateProject)
+export default connect(mapStateToProps,null)(NewTest)

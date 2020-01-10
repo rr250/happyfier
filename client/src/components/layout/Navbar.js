@@ -12,7 +12,7 @@ const Navbar = (props) => {
         <nav>
             <div className="nav-wrapper blue darken-3">
                 <Link to='/' className="brand-logo left yellow-text text-lighten-1 hide-on-med-and-up"><i class="material-icons">mood</i></Link>
-                <Link to='/' className="brand-logo center yellow-text text-lighten-1 hide-on-small-only	"><i class="material-icons">mood</i>Happify</Link>
+                <Link to='/' className="brand-logo center yellow-text text-lighten-1 hide-on-small-only	"><i class="material-icons">mood</i>Happifier</Link>
                 <ul id="nav-mobile" class="right">
                     <li>{links}</li>
                 </ul>

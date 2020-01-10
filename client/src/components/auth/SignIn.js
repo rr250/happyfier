@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {signIn} from '../../store/actions/authActions'
 import {Redirect} from 'react-router-dom'
 import {signUpWithGoogle} from '../../store/actions/authActions'
-
+import GoogleButton from 'react-google-button'
 export class SignIn extends Component {
     state={
       email: '',
@@ -45,7 +45,7 @@ export class SignIn extends Component {
                 {authError ? <p> {authError} </p> : null}
               </div>
               <div className="input-field">
-                <button onClick={this.handleSubmitWithGoogle} className="btn red lighten-1 z-depth-0">Google SignIn</button>
+                <GoogleButton type="dark" onClick={this.handleSubmitWithGoogle} />
               </div>
             </div>
         </form>

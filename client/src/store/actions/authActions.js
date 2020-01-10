@@ -55,7 +55,7 @@ export const signUpWithGoogle = ()=>{
             return firestore.collection('users').doc(resp.user.uid).set({
                 firstName: resp.user.displayName.split(" ")[0],
                 lastName: resp.user.displayName.split(" ")[1],
-                initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[0][0]
+                initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[1][0]
             })
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
