@@ -44,3 +44,23 @@ export const signUp = (newUser)=>{
         })
     }
 }
+
+export const signUpWithGoogle = ()=>{
+    return(dispatch, getState,{getFirebase, getFirestore})=>{
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(googleAuthProvider)
+        .then((resp) => {
+            return firestore.collection('users').doc(resp.user.uid).set({
+                firstName: resp.user.displayName.split(" ")[0],
+                lastName: resp.user.displayName.split(" ")[1],
+                initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[0][0]
+            })
+        }).then(()=>{
+            dispatch({type: 'SIGNUP_SUCCESS'})
+        }).catch(err=>{
+            dispatch({type:'SIGNUP_ERROR', err})
+        })
+    }
+}

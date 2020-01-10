@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {signIn} from '../../store/actions/authActions'
 import {Redirect} from 'react-router-dom'
+import {signUpWithGoogle} from '../../store/actions/authActions'
 
 export class SignIn extends Component {
     state={
@@ -16,7 +17,11 @@ export class SignIn extends Component {
   handleSubmit=(e)=>{
     e.preventDefault();
     this.props.signIn(this.state);
-  }  
+  }
+  handleSubmitWithGoogle=(e)=>{
+    e.preventDefault();
+    this.props.signUpWithGoogle();
+  }
   
   render() {
     const { authError,auth }=this.props;
@@ -35,12 +40,15 @@ export class SignIn extends Component {
               <input type="password" id="password" onChange={this.handleChange}/>  
             </div>
             <div className="input-field">
-              <button className="btn pink lighten-1 z-depth-0">Login</button>  
+              <button className="btn pink lighten-1 z-depth-0">Login</button>                 
               <div className="red-text center">
                 {authError ? <p> {authError} </p> : null}
               </div>
+              <div className="input-field">
+                <button onClick={this.handleSubmitWithGoogle} className="btn red lighten-1 z-depth-0">Google SignIn</button>
+              </div>
             </div>
-        </form>  
+        </form>
       </div>
     )
   }
@@ -55,7 +63,8 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
   return{
-      signIn: (creds)=> dispatch(signIn(creds))
+      signIn: (creds)=> dispatch(signIn(creds)),
+      signUpWithGoogle: ()=> dispatch(signUpWithGoogle())
   }
 }
 
