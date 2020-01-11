@@ -3,17 +3,49 @@ export const createProject=(project)=>{
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
-        firestore.collection('projects').add({
-            ...project,
-            authorFirstName: profile.firstName,
-            authorLastName:profile.lastName,
-            authorId:authorId,
-            createdAt:new Date()
-        }).then(()=>{
-            dispath({type: 'CREATE_PROJECT', project});
-        }).catch((err)=>{
-            dispath({type: 'CREATE_PROJECT_ERROR', err});
-        })
+        if(project.anon===false && project.diary===false){
+            firestore.collection('projects').add({
+                ...project,
+                authorFirstName: profile.firstName,
+                authorLastName:profile.lastName,
+                authorId:authorId,
+                diary:false,
+                createdAt:new Date()
+            }).then(()=>{
+                dispath({type: 'CREATE_PROJECT', project});
+            }).catch((err)=>{
+                dispath({type: 'CREATE_PROJECT_ERROR', err});
+            })
+        }
+        else if(project.anon===true && project.diary===false){
+            firestore.collection('projects').add({
+                ...project,
+                authorFirstName: "Anonymous",
+                authorLastName: "User",
+                authorId:authorId,
+                diary:false,
+                createdAt:new Date()
+            }).then(()=>{
+                dispath({type: 'CREATE_PROJECT', project});
+            }).catch((err)=>{
+                dispath({type: 'CREATE_PROJECT_ERROR', err});
+            })
+        }
+        else{
+            firestore.collection('projects').add({
+                ...project,
+                authorFirstName: profile.firstName,
+                authorLastName:profile.lastName,
+                authorId:authorId,
+                diary:true,
+                createdAt:new Date()
+            }).then(()=>{
+                dispath({type: 'CREATE_PROJECT', project});
+            }).catch((err)=>{
+                dispath({type: 'CREATE_PROJECT_ERROR', err});
+            })
+        }
+
         
     }
 };

@@ -6,7 +6,7 @@ const ProjectList = ({projects}) => {
     return (
       <div className="project-list section">
         {projects && projects.map(project=>{
-          return(
+          if(project.diary===false)return(
             <Link to={'/project/' + project.id} key={project.id}>
               <ProjectSummary project={project}/>
             </Link>  

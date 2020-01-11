@@ -6,7 +6,9 @@ import {Redirect} from 'react-router-dom'
 export class CreateProject extends Component {
     state={
       title:'',
-      content:''
+      content:'',
+      anon: false,
+      diary: false
     }
   handleChange=(e)=>{
     this.setState({
@@ -19,6 +21,20 @@ export class CreateProject extends Component {
     this.props.createProject(this.state)
     this.props.history.push('/')
   }  
+
+  handleCheckAnon=(e)=>{
+    console.log(this.state.anon)
+    this.setState({
+      anon: !(this.state.anon)
+    });
+    console.log(this.state.anon)
+  } 
+
+  handleCheckDiary=(e)=>{
+    this.setState({
+      diary: !(this.state.diary)
+    });
+  } 
   
   render() {
     const { auth }=this.props;
@@ -35,6 +51,20 @@ export class CreateProject extends Component {
             <div className="input-field">
               <label htmlFor="content">Project Content</label>
               <textarea type="text" id="content" className="materialize-textarea" onChange={this.handleChange}/>  
+            </div>
+            <div className="input-field">
+              <label>
+                <input type="checkbox" onChange={this.handleCheckAnon}/>
+                <span>Post as Anonymous</span>
+              </label>
+              <br/>
+            </div>
+            <div className="input-field">
+              <label>
+                <input type="checkbox" onChange={this.handleCheckDiary}/>
+                <span>Post on Personal Diary</span>
+              </label>
+              <br/>
             </div>
             <div className="input-field">
               <button className="btn yellow lighten-1 z-depth-2 blue-text text-darken-2">Create</button>  
