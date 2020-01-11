@@ -6,7 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(/img/wallp1.jpg) ;
+  /* background: url(/img/wallp1.jpg) ; */
+  background: url(/img/happyStars.jpg);
   background-repeat: repeat;
   background-size: 100%
 }
