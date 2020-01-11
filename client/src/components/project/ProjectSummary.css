@@ -1,0 +1,57 @@
+.ProjectSummary{
+    width: 600px;
+    height: 152px;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.PostInformation{
+    display: flex;
+    flex-direction: column;
+}
+
+.Line{
+    margin-left:5px;
+    width: 590px;
+    height: 0.5px;
+    background-color: black;
+}
+
+.PostDetails{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    margin-left: 10px;
+    font-size: 12px;
+    color: gray;
+}
+
+.CreationTime{
+    margin-left: 10px;
+}
+
+.PostTitle{
+    font-size: 30px;
+    margin-left: 10px;
+    width: 290px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.PostTitleContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content{
+    height: 89px;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 580px;
+    color: black;
+    font-size: 18px;
+}
