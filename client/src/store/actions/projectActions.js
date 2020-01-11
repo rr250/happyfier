@@ -48,13 +48,12 @@ export const createProject=(project)=>{
     }
 };
 
-export const deleteProject=(project)=>{
+export const deleteProject=(id)=>{
     return(dispath, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
-        firestore.collection('projects').delete({
-            projectId: project.projectId
-        }).then(()=>{
-            dispath({type: 'DELETE_PROJECT', project});
+        firestore.collection('projects').doc(id).delete(
+        ).then(()=>{
+            dispath({type: 'DELETE_PROJECT', id});
         }).catch((err)=>{
             dispath({type: 'CREATE_PROJECT_ERROR', err});
         })

@@ -6,6 +6,13 @@ import {Redirect} from 'react-router-dom'
 import {deleteProject} from '../../store/actions/projectActions'
 
 class YourPosts extends Component{
+    handleDelete=(id,e)=>{
+        e.preventDefault();
+        console.log(id);
+        this.props.deleteProject(id)
+    }  
+
+
     render(){
         
         const { projects,auth }=this.props;
@@ -21,6 +28,9 @@ class YourPosts extends Component{
                                 <div class="card-content">
                                     <span class="card-title">{project.title}</span>
                                     <p>{project.content}</p>
+                                    <div className="input-field">
+                                        <button className="btn yellow lighten-1 z-depth-2 blue-text text-darken-2" onClick={(e) => this.handleDelete(project.id, e)}>Delete</button>  
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -44,7 +54,7 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-      createProject:(project)=>dispatch(deleteProject(project))
+      deleteProject:(project)=>dispatch(deleteProject(project))
     }
   }
 
