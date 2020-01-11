@@ -10,6 +10,27 @@ export class CreateProject extends Component {
       anon: false,
       diary: false
     }
+
+   isFormValid = () => {
+     let error;
+      if (this.isFormEmpty(this.state)) {
+          error = 'Fill in all fields';
+          this.setState({ errors: error.toString() });
+          return false;
+      } else {
+          return true;
+      }
+  }
+
+  isFormEmpty = ({ title, content }) => {
+      return !title.length || !content.length;
+  }  
+
+  displayErrors = (errors) => {
+    console.log(errors)
+     return(<p>{errors}</p>)
+  };
+
   handleChange=(e)=>{
     this.setState({
       [e.target.id]: e.target.value
@@ -17,9 +38,12 @@ export class CreateProject extends Component {
   }  
   handleSubmit=(e)=>{
     e.preventDefault();
+    if(this.isFormValid()) {
+      this.setState({ errors: [], loading: true });
     console.log(this.state)
     this.props.createProject(this.state)
     this.props.history.push('/')
+    }
   }  
 
   handleCheckAnon=(e)=>{
@@ -68,6 +92,11 @@ export class CreateProject extends Component {
             </div>
             <div className="input-field">
               <button className="btn yellow lighten-1 z-depth-2 blue-text text-darken-2">Create</button>  
+            </div>
+            <div className="red-text center">
+              {this.errors!==[] && (
+                <span style={{'whiteSpace': 'pre-wrap'}}>{this.displayErrors(this.state.errors)}</span>
+              )}
             </div>
         </form>  
       </div>

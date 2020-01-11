@@ -5,11 +5,34 @@ import {signUp} from '../../store/actions/authActions'
 
 export class SignUp extends Component {
     state={
+      errors: '',
       firstName: '',
       lastName: '',
       email: '',
       password: ''
     }
+
+    isFormValid = () => {
+      let error;
+      if (this.isFormEmpty(this.state)) {
+          error = 'Fill in all fields';
+          this.setState({ errors: error.toString() });
+          return false;
+      } else {
+          return true;
+      }
+  }
+
+  isFormEmpty = ({ firstName, lastName, email, password }) => {
+      console.log(firstName.length)
+      return !firstName.length || !lastName.length || !email.length || !password.length;
+  }  
+
+  displayErrors = (errors) => {
+    console.log(errors)
+     return(<p>{errors}</p>)
+    };
+
   handleChange=(e)=>{
     this.setState({
       [e.target.id]: e.target.value
@@ -17,8 +40,12 @@ export class SignUp extends Component {
   }  
   handleSubmit=(e)=>{
     e.preventDefault();
+    if(this.isFormValid()) {
+      this.setState({ errors: [], loading: true });
+
     console.log(this.state);
     this.props.signUp(this.state);
+    }
   }  
   
   render() {
@@ -49,6 +76,9 @@ export class SignUp extends Component {
               <button className="btn pink lighten-1 z-depth-0">SignUp</button>  
               <div className="red-text center">
                 { authError ? <p>{ authError }</p> : null}
+                {this.errors!==[] && (
+                  <span style={{'whiteSpace': 'pre-wrap'}}>{this.displayErrors(this.state.errors)}</span>
+                )}
               </div>
             </div>
         </form>  
