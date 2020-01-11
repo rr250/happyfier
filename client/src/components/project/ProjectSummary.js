@@ -8,6 +8,7 @@ const ProjectSummary = ({project}) => {
           <div className= "card-content grey-text text-darken-3 " >
             <div className="card-panel z-depth-3 yellow accent-2 ">
                 <h4 className="blue-text">{project.title}</h4>
+                <p>{project.content.substring(0,100)}</p>
                 <div class="card-action ">
                   <p className="black-text">Posted by {project.authorFirstName} {project.authorLastName}</p>
                   <p className="grey-text">{moment(project.createdAt.toDate()).calendar()}</p>
