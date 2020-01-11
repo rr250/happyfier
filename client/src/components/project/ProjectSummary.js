@@ -2,6 +2,11 @@ import React from 'react'
 import moment from 'moment'
 
 const ProjectSummary = ({project}) => {
+  function handleDelete(id,e){
+    e.preventDefault();
+    console.log(id);
+    this.props.deleteProject(id)
+  }  
     return (
       <div className="project-list section white">
         <div className="card z-depth-0">
