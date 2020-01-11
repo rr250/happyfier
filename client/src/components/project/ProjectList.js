@@ -11,6 +11,8 @@ const ProjectList = ({projects}) => {
               <ProjectSummary project={project}/>
             </Link>  
           )
+          else
+            return null
         })}         
       </div>
     )

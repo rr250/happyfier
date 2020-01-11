@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ProjectList from '../project/ProjectList'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
+import {deleteProject} from '../../store/actions/projectActions'
 
 class YourPosts extends Component{
     render(){
@@ -24,6 +24,8 @@ class YourPosts extends Component{
                                 </div>
                             </div>
                         )
+                        else
+                            return null
                     })}                        
                     </div>
                 </div>
@@ -40,7 +42,13 @@ const mapStateToProps=(state)=>{
     }
 }
 
+const mapDispatchToProps=(dispatch)=>{
+    return{
+      createProject:(project)=>dispatch(deleteProject(project))
+    }
+  }
+
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([{collection: 'projects',orderBy:['createdAt','desc']}])
 )(YourPosts)
