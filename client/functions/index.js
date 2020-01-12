@@ -34,3 +34,13 @@ exports.userJoined = functions.auth.user()
         return createNotification(notification);
     })
 });
+
+// exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun((context) => {
+//     console.log('This will be run every 5 minutes!');
+//     return null;
+//   });
+  
+exports.scheduledFunctionCrontab = functions.https.onRequest(function (req, res) {
+  console.log('This will be run every day at 11:05 AM Eastern!');
+  res.status(200).send({ message: 'Hello' });
+});

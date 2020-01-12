@@ -17,7 +17,7 @@ export const createProject=(project)=>{
         if(project.anon===false && project.diary===false){
             firestore.collection('projects').add({
                 title:project.title,
-                content:project.anon,
+                content:project.content,
                 anon: project.anon,
                 authorFirstName: profile.firstName,
                 authorLastName:profile.lastName,
@@ -34,7 +34,7 @@ export const createProject=(project)=>{
         else if(project.anon===true && project.diary===false){
             firestore.collection('projects').add({
                 title:project.title,
-                content:project.anon,
+                content:project.content,
                 anon: project.anon,
                 authorFirstName: "Anonymous",
                 authorLastName: "User",
@@ -51,7 +51,7 @@ export const createProject=(project)=>{
         else{
             firestore.collection('projects').add({
                 title:project.title,
-                content:project.anon,
+                content:project.content,
                 anon: project.anon,
                 authorFirstName: profile.firstName,
                 authorLastName:profile.lastName,
