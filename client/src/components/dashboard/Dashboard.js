@@ -7,6 +7,7 @@ import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
 import {addToken} from '../../store/actions/userActions'
 import { messaging } from '../../config/fbConfig'
+import {Link} from 'react-router-dom'
 import './DashBoard.css';
 
 class Dashboard extends Component{
@@ -41,6 +42,23 @@ class Dashboard extends Component{
                     </div>
                     <div className="Notifications">
                         <Notifications notifications={notifications}/>
+                    
+                    <div className="col s12 m4 offset-m8">
+                    <h5>Bookmarks</h5>
+                    {projects && this.props.profile.bookMarks && projects.map(project=>{
+                        if(this.props.profile.bookMarks.includes(project.id))return(
+                            <Link to={'/project/' + project.id} key={project.id}>
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title">{project.title}</span>
+                                </div>
+                            </div>
+                            </Link>
+                        )
+                        else
+                            return null
+                    })}                        
+                    </div>
                     </div>
             </div>  
         )  
@@ -52,7 +70,8 @@ const mapStateToProps=(state)=>{
     return{
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth,
-        notifications: state.firestore.ordered.notifications
+        notifications: state.firestore.ordered.notifications,
+        profile: state.firebase.profile
     }
 }
 
@@ -64,5 +83,5 @@ const mapDispatchToProps=(dispatch)=>{
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([{collection: 'projects',orderBy:['createdAt','desc']}, {collection: 'notifications', limit:3, orderBy:['time','desc']}])
+    firestoreConnect([{collection: 'projects',orderBy:['createdAt','desc']}, {collection: 'notifications', limit:5, orderBy:['time','desc']}])
 )(Dashboard)

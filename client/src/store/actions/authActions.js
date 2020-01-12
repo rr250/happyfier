@@ -55,6 +55,8 @@ export const signUpWithGoogle = ()=>{
         const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(googleAuthProvider)
         .then((resp) => {
+            console.log(resp)
+            if(resp.additionalUserInfo.isNewUser){
             return firestore.collection('users').doc(resp.user.uid).set({
                 firstName: resp.user.displayName.split(" ")[0],
                 lastName: resp.user.displayName.split(" ")[1],
@@ -62,7 +64,7 @@ export const signUpWithGoogle = ()=>{
                 streak:0,
                 bookMarks:[],
                 lastUpdated:new Date()
-            })
+            })}
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
         }).catch(err=>{

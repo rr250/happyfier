@@ -33,9 +33,10 @@ export const toggleBookMark=(id,projectId)=>{
     return(dispath, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         const firebase=getFirebase();
-        console.log({ id, projectId });
+        const profile = getState().firebase.profile;
+        const isBookmarked = profile.bookMarks.includes(projectId);
         firestore.collection('users').doc(id).update({
-            bookMarks: firebase.firestore.FieldValue.arrayUnion(projectId),
+            bookMarks: !isBookmarked ? firebase.firestore.FieldValue.arrayUnion(projectId) : firebase.firestore.FieldValue.arrayRemove(projectId),
             latestBookmark: projectId
             }).then(()=>{
             dispath({type: 'TOGGLE_BOOKMARK', id});

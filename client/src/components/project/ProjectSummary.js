@@ -16,7 +16,7 @@ class ProjectSummary extends Component{
         <div className="PostInformation">
           <div className="PostTitleContainer">
             <div className="PostTitle">{this.props.project.title}</div>
-            <i className="material-icons" onClick={this.BookMarkToggle}>{this.props.project.BookMarked?"bookmark":"bookmark_border"}</i>
+            <i className="material-icons" onClick={this.BookMarkToggle}>{this.props.profile.bookMarks && this.props.profile.bookMarks.includes(this.props.project.id)?"bookmark":"bookmark_border"}</i>
           </div>
           <div className="Line"></div>
           <div className="PostDetails">
