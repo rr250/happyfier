@@ -1,6 +1,6 @@
 .ProjectSummary{
-    width: 600px;
-    height: 152px;
+    width: 800px;
+    height: 150px;
     background-color: white;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -13,7 +13,7 @@
 
 .Line{
     margin-left:5px;
-    width: 590px;
+    width: 790px;
     height: 0.5px;
     background-color: black;
 }
@@ -34,7 +34,7 @@
 .PostTitle{
     font-size: 30px;
     margin-left: 10px;
-    width: 290px;
+    width: 650px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -47,11 +47,11 @@
 }
 
 .content{
-    height: 89px;
+    height: 87px;
     overflow: hidden;
     margin-left: 10px;
     margin-right: 10px;
-    width: 580px;
+    width: 780px;
     color: black;
     font-size: 18px;
 }
