@@ -6,7 +6,7 @@ export const createProject=(project)=>{
         if(project.anon===false && project.diary===false){
             firestore.collection('projects').add({
                 title:project.title,
-                content:project.anon,
+                content:project.content,
                 anon: project.anon,
                 authorFirstName: profile.firstName,
                 authorLastName:profile.lastName,

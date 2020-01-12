@@ -9,12 +9,7 @@ import {addToken} from '../../store/actions/userActions'
 import { messaging } from '../../config/fbConfig'
 import './DashBoard.css';
 
-class Dashboard extends Component{ 
-    // handleToken=(token)=>{
-    //     console.log(token)
-    //     this.props.addToken(this.state.token)
-    // } 
-  
+class Dashboard extends Component{
     state={
         token:''
     } 
