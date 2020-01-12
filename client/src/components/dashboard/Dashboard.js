@@ -37,7 +37,7 @@ class Dashboard extends Component{
             <div className="DashBoard">
                     <div className="Projects">
                  
-                        <ProjectList projects={projects}/>
+                        {projects && <ProjectList projects={projects}/>}
                         
                     </div>
                     <div className="Notifications">
