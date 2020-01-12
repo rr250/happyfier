@@ -17,9 +17,6 @@ const projectReducer=(state= initState, action)=>{
         case 'CREATE_PROJECT_ERROR':
             console.log(action.err)
             return state;    
-        case 'TOGGLE_BOOKMARK':
-            console.log(state);
-            return state;
         default:
             return state
     }

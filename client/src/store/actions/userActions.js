@@ -28,3 +28,19 @@ export const updateStreak=(data)=>{
         })
     }
 };
+
+export const toggleBookMark=(id,projectId)=>{
+    return(dispath, getState, {getFirebase, getFirestore})=>{
+        const firestore = getFirestore();
+        const firebase=getFirebase();
+        console.log({ id, projectId });
+        firestore.collection('users').doc(id).update({
+            bookMarks: firebase.firestore.FieldValue.arrayUnion(projectId),
+            latestBookmark: projectId
+            }).then(()=>{
+            dispath({type: 'TOGGLE_BOOKMARK', id});
+        }).catch((err)=>{
+            dispath({type: 'TOGGLE_BOOKMARK_ERROR', err});
+        })
+    }
+};

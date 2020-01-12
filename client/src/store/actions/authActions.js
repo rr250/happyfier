@@ -37,6 +37,7 @@ export const signUp = (newUser)=>{
                 lastName: newUser.lastName,
                 initials: newUser.firstName[0]+newUser.lastName[0],
                 streak:0,
+                bookMarks:[],
                 lastUpdated:new Date()
             })
         }).then(()=>{
@@ -59,6 +60,7 @@ export const signUpWithGoogle = ()=>{
                 lastName: resp.user.displayName.split(" ")[1],
                 initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[1][0],
                 streak:0,
+                bookMarks:[],
                 lastUpdated:new Date()
             })
         }).then(()=>{

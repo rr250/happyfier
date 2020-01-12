@@ -2,35 +2,16 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import './ProjectSummary.css'
-import {toggleBookMark} from '../../store/actions/projectActions'
+import {toggleBookMark} from '../../store/actions/userActions'
 
 class ProjectSummary extends Component{ 
-// const ProjectSummary = ({project}) => {
-  // function handleDelete(id,e){
-  //   e.preventDefault();
-  //   console.log(id);
-  //   this.props.deleteProject(id);
-  // }  
   BookMarkToggle=(e)=>{
     e.preventDefault();
     console.log(this.props.project.id);
-    this.props.toggleBookMark(this.props.project.id,)
+    this.props.toggleBookMark(this.props.auth.uid,this.props.project.id)
   }
     render(){
       return (
-      // <div className="project-list section white">
-      //   <div className="card z-depth-0">
-      //     <div className= "card-content grey-text text-darken-3 " >
-      //       <div className="card-panel z-depth-3 yellow accent-2 ">
-      //           <h4 className="blue-text">{project.title}</h4>
-      //           <div class="card-action ">
-      //             <p className="black-text">Posted by {project.authorFirstName} {project.authorLastName}</p>
-      //             <p className="grey-text">{moment(project.createdAt.toDate()).calendar()}</p>
-      //           </div>
-      //           </div>
-      //       </div>
-      //   </div>
-      // </div>
       <div className="ProjectSummary">
         <div className="PostInformation">
           <div className="PostTitleContainer">
@@ -49,18 +30,18 @@ class ProjectSummary extends Component{
     }
   }
 
-  // const mapStateToProps=(state)=>{
-  //   console.log(state);
-  //   return{
-  //       auth: state.firebase.auth,
-  //       authError: state.auth.authError
-  //   }
-  // }
+  const mapStateToProps=(state)=>{
+    console.log(state);
+    return{
+        auth: state.firebase.auth,
+        profile: state.firebase.profile,
+    }
+}
 
   const mapDispatchToProps=(dispatch)=>{
     return{
-        toggleBookMark: (id,bookMarkStatus)=> dispatch(toggleBookMark(id,bookMarkStatus))
+        toggleBookMark: (id,projectId)=> dispatch(toggleBookMark(id,projectId))
     }
   }
   
-export default connect(null,mapDispatchToProps)(ProjectSummary);
+export default connect(mapStateToProps,mapDispatchToProps)(ProjectSummary);

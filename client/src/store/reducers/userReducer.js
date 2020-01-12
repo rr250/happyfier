@@ -16,6 +16,12 @@ const projectReducer=(state= initState,action)=>{
         case 'UPDATE_STREAK_ERROR':
             console.log(action.err)
             return state;    
+        case 'TOGGLE_BOOKMARK':
+            console.log(state);
+            return state;
+        case 'TOGGLE_BOOKMARK_ERROR':
+            console.log(action.err)
+            return state; 
         default:
             return state
     }

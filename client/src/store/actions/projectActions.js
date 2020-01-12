@@ -1,15 +1,4 @@
 export const createProject=(project)=>{
-    // updateUser() {
-    //     this.db.collection('yourDbCollection').doc('ifYourIdCostumized').update({
-    //         age: newAgeHere
-    //     })
-    //         .then(function () {
-    //             console.log("Document successfully updated!");
-    //         }).catch(function (error) {
-    //             console.error("Error removing document: ", error);
-
-    //         });
-    // }
     return(dispath, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
@@ -80,15 +69,3 @@ export const deleteProject=(id)=>{
     }
 };
 
-export const toggleBookMark=(id,bookMarkStatus)=>{
-    return(dispath, getState, {getFirebase, getFirestore})=>{
-        const firestore = getFirestore();
-        firestore.collection('projects').doc(id).update({
-            BookMarked: !bookMarkStatus,
-            }).then(()=>{
-            dispath({type: 'TOGGLE_BOOKMARK', id});
-        }).catch((err)=>{
-            dispath({type: 'CREATE_PROJECT_ERROR', err});
-        })
-    }
-};

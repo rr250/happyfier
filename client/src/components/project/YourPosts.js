@@ -38,6 +38,20 @@ class YourPosts extends Component{
                             return null
                     })}                        
                     </div>
+                    <div className="col s12 m4 offset-m1">
+                    {projects && projects.map(project=>{
+                        if(this.props.profile.bookMarks.includes(project.id))return(
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title">{project.title}</span>
+                                    <p>{project.content}</p>
+                                </div>
+                            </div>
+                        )
+                        else
+                            return null
+                    })}                        
+                    </div>
                 </div>
             </div>  
         )  
@@ -49,7 +63,8 @@ const mapStateToProps=(state)=>{
     return{
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth,
-    }
+        profile: state.firebase.profile
+  }
 }
 
 const mapDispatchToProps=(dispatch)=>{
