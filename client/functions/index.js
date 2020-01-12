@@ -34,3 +34,8 @@ exports.userJoined = functions.auth.user()
         return createNotification(notification);
     })
 });
+
+exports.scheduledFunction = functions.pubsub.schedule('every 1 day').onRun((context) => {
+    console.log('This will be run every 5 minutes!');
+    return null;
+  });

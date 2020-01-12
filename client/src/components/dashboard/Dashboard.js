@@ -14,19 +14,18 @@ class Dashboard extends Component{
     //     console.log(token)
     //     this.props.addToken(this.state.token)
     // } 
+  
     state={
         token:''
     } 
     async componentDidMount() {
-        console.log(this)
+        var that = this
         var token;
         messaging.requestPermission()
           .then(async function() {
             token = await messaging.getToken();
-            console.log(token,this);
-            this.setState(() => ({
-                token:token
-            }))
+            console.log(token,that);
+            that.props.addToken(token)
           })
           .catch(function(err) {
             console.log("Unable to get permission to notify.", err);
