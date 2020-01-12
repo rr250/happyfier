@@ -5,7 +5,9 @@ export const createProject=(project)=>{
         const authorId = getState().firebase.auth.uid;
         if(project.anon===false && project.diary===false){
             firestore.collection('projects').add({
-                ...project,
+                title:project.title,
+                content:project.anon,
+                anon: project.anon,
                 authorFirstName: profile.firstName,
                 authorLastName:profile.lastName,
                 authorId:authorId,
@@ -19,7 +21,9 @@ export const createProject=(project)=>{
         }
         else if(project.anon===true && project.diary===false){
             firestore.collection('projects').add({
-                ...project,
+                title:project.title,
+                content:project.anon,
+                anon: project.anon,
                 authorFirstName: "Anonymous",
                 authorLastName: "User",
                 authorId:authorId,
@@ -33,7 +37,9 @@ export const createProject=(project)=>{
         }
         else{
             firestore.collection('projects').add({
-                ...project,
+                title:project.title,
+                content:project.anon,
+                anon: project.anon,
                 authorFirstName: profile.firstName,
                 authorLastName:profile.lastName,
                 authorId:authorId,

@@ -10,6 +10,10 @@ import thunk from 'redux-thunk'
 import {reduxFirestore, getFirestore} from 'redux-firestore'
 import {reactReduxFirebase, getFirebase} from 'react-redux-firebase'
 import fbConfig from './config/fbConfig'
+import { registerServiceWorker } from "./register-sw";
+
+registerServiceWorker();
+
 
 const store = createStore(rootReducer, 
     compose(

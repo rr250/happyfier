@@ -5,9 +5,34 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
+import {addToken} from '../../store/actions/userActions'
+import { messaging } from '../../config/fbConfig'
 import './DashBoard.css';
 
-class Dashboard extends Component{
+class Dashboard extends Component{ 
+    // handleToken=(token)=>{
+    //     console.log(token)
+    //     this.props.addToken(this.state.token)
+    // } 
+    state={
+        token:''
+    } 
+    async componentDidMount() {
+        console.log(this)
+        var token;
+        messaging.requestPermission()
+          .then(async function() {
+            token = await messaging.getToken();
+            console.log(token,this);
+            this.setState(() => ({
+                token:token
+            }))
+          })
+          .catch(function(err) {
+            console.log("Unable to get permission to notify.", err);
+          });
+        navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
+      } 
     render(){
         
         const { projects,auth,notifications }=this.props;
@@ -20,7 +45,6 @@ class Dashboard extends Component{
                         <ProjectList projects={projects}/>
                         
                     </div>
-                    
                     <div className="Notifications">
                         <Notifications notifications={notifications}/>
                     </div>
@@ -38,7 +62,13 @@ const mapStateToProps=(state)=>{
     }
 }
 
+const mapDispatchToProps=(dispatch)=>{
+    return{
+      addToken:(token)=>dispatch(addToken(token))
+    }
+  }
+
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([{collection: 'projects',orderBy:['createdAt','desc']}, {collection: 'notifications', limit:3, orderBy:['time','desc']}])
 )(Dashboard)
