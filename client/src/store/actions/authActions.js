@@ -35,7 +35,9 @@ export const signUp = (newUser)=>{
             return firestore.collection('users').doc(resp.user.uid).set({
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
-                initials: newUser.firstName[0]+newUser.lastName[0]
+                initials: newUser.firstName[0]+newUser.lastName[0],
+                streak:0,
+                lastUpdated:new Date()
             })
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
@@ -55,7 +57,9 @@ export const signUpWithGoogle = ()=>{
             return firestore.collection('users').doc(resp.user.uid).set({
                 firstName: resp.user.displayName.split(" ")[0],
                 lastName: resp.user.displayName.split(" ")[1],
-                initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[1][0]
+                initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[1][0],
+                streak:0,
+                lastUpdated:new Date()
             })
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
