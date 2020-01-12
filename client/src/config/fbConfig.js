@@ -15,7 +15,7 @@ var config = {
   const messaging = initializedFirebaseApp.messaging();
 
   messaging.usePublicVapidKey(
-    "BOxGc_2ECYYe1fpFbFXdKBLYpg1MEbwMt8E57SkZJcG_H9PnaZX5fbTi99DZo4efbCs9phjGmWvQeung9O0cFdo"
+    "BOxGc_2ECYYe1fpFbFXdK............bCs9phjGmWvQeung9O0cFdo"
   );
 
   export { messaging };
