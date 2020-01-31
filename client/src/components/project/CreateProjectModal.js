@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
+import {NavLink} from 'react-router-dom'
 import Modal from 'react-responsive-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencilAlt,faUserSecret, faBook, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 export class CreateProjectModal extends Component {
-  constructor(props) {
-    super(props);
-  }
     state={
       title:'',
       content:'',
@@ -72,11 +72,20 @@ export class CreateProjectModal extends Component {
 
   render() {
     const { handleSubmit }=this.props;
+    const bg = {
+      modal: {
+        width:'400%',
+        padding:0
+      }
+    };
     console.log(this);
     return (
       <div>
-        <a onClick={this.onOpenModal}>Open Modal</a>
-        <Modal open={this.state.open} onClose={this.onCloseModal} center>
+        <a ><FontAwesomeIcon icon={faPencilAlt} onClick={this.onOpenModal}/></a><FontAwesomeIcon icon={faPencilAlt} onClick={this.onOpenModal}/>
+        <Modal open={this.state.open} onClose={this.onCloseModal} center styles={bg}>
+          <div style={{position: 'absolute', left: '100%', marginLeft: '-50px'}}>
+            <NavLink to='/create'><FontAwesomeIcon icon={faExternalLinkAlt} onClick={this.onCloseModal} color='gray' size="1.7x"/></NavLink>
+          </div>
           <div className="container">
             <form onSubmit={handleSubmit} className="white">
               <h5 className="grey-text text-darken-3">Create new post</h5>
@@ -91,14 +100,14 @@ export class CreateProjectModal extends Component {
               <div className="input-field">
                 <label>
                   <input type="checkbox" onChange={this.handleCheckAnon}/>
-                  <span>Post as Anonymous</span>
+                  <span>Post as Anonymous <FontAwesomeIcon icon={faUserSecret} /></span>
                 </label>
                 <br/>
               </div>
               <div className="input-field">
                 <label>
                   <input type="checkbox" onChange={this.handleCheckDiary}/>
-                  <span>Post on Personal Diary</span>
+                  <span>Post on Personal Diary <FontAwesomeIcon icon={faBook} /></span>
                 </label>
                 <br/>
               </div>
