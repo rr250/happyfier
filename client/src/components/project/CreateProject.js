@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {createProject} from '../../store/actions/projectActions'
 import {Redirect} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserSecret, faBook } from '@fortawesome/free-solid-svg-icons'
 
 export class CreateProject extends Component {
     state={
@@ -79,14 +81,14 @@ export class CreateProject extends Component {
             <div className="input-field">
               <label>
                 <input type="checkbox" onChange={this.handleCheckAnon}/>
-                <span>Post as Anonymous</span>
+                <span>Post as Anonymous <FontAwesomeIcon icon={faUserSecret} /></span>
               </label>
               <br/>
             </div>
             <div className="input-field">
               <label>
                 <input type="checkbox" onChange={this.handleCheckDiary}/>
-                <span>Post on Personal Diary</span>
+                <span>Post on Personal Diary <FontAwesomeIcon icon={faBook} /></span>
               </label>
               <br/>
             </div>
