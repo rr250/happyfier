@@ -14,10 +14,10 @@ export class SignedInLinks extends Component {
             <li><CreateProjectModal createProject={this.props.createProject}/></li>
             <li><NavLink to='/create'><FontAwesomeIcon icon={faPencilAlt}/></NavLink></li>
             <li><NavLink to='/gratitudejournal'><FontAwesomeIcon icon={faBook}/></NavLink></li>
-            <li><NavLink to='/gratitudejournal'style={{}}><FontAwesomeIcon icon={faFire} /> {props.profile.streak}</NavLink></li>
+            <li><NavLink to='/gratitudejournal'style={{}}><FontAwesomeIcon icon={faFire} /> {this.props.profile.streak}</NavLink></li>
             <li><NavLink to='/gratitudejournal'style={{}}><FontAwesomeIcon icon={faBell} /></NavLink></li>
-            <li><a onClick={props.signOut}><FontAwesomeIcon icon={faSignOutAlt}/></a></li>
-            <li><NavLink to='/yourposts' className='btn btn-floating white purple-text text-accent-2 text-bold z-depth-2'>{props.profile.initials}</NavLink></li>
+            <li><a onClick={this.props.signOut}><FontAwesomeIcon icon={faSignOutAlt}/></a></li>
+            <li><NavLink to='/yourposts' className='btn btn-floating white purple-text text-accent-2 text-bold z-depth-2'>{this.props.profile.initials}</NavLink></li>
             </ul>
         )
     }

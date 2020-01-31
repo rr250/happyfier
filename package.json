@@ -20,7 +20,9 @@
   },
   "author": "Rishabh Ranjan",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "react-responsive-modal": "^4.0.1"
+  },
   "devDependencies": {
     "concurrently": "^5.0.0",
     "nodemon": "^1.19.4"
