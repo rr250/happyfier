@@ -21,9 +21,12 @@ class YourPosts extends Component{
             return<Redirect to='/signin'/>    
         return(
             <div className="dashboard container">
+                <br />
+                <br />
+                <br />
                 <div className="row">
                     <div className="col s12 m7">
-                    <h4>Personal Diary</h4>
+                    <h4 className="grey-text darken-4">Personal Diary</h4>
                     {projects && projects.map(project=>{
                         if(auth.uid===project.authorId)return(
                             <div class="card">
@@ -31,7 +34,7 @@ class YourPosts extends Component{
                                     <span class="card-title">{project.title}</span>
                                     <p>{project.content}</p>
                                     <div className="input-field">
-                                        <button className="btn yellow lighten-1 z-depth-2 blue-text text-darken-2" onClick={(e) => this.handleDelete(project.id, e)}>Delete</button>  
+                                        <button className="btn purple accent-2 z-depth-2 z-depth-2" onClick={(e) => this.handleDelete(project.id, e)}>Delete</button>  
                                     </div>
                                 </div>
                             </div>
@@ -41,20 +44,22 @@ class YourPosts extends Component{
                     })}                        
                     </div>
                     <div className="col s12 m4 offset-m1">
-                    <h5>Bookmarks</h5>
-                    {projects && projects.map(project=>{
-                        if(this.props.profile.bookMarks.includes(project.id))return(
-                            <Link to={'/project/' + project.id} key={project.id}>
-                            <div class="card">
-                                <div class="card-content">
-                                    <span class="card-title">{project.title}</span>
-                                </div>
+                        <div className="card z-depth-0 purple lighten-5">
+                            <div className="card-content">
+                                <span className="card-title">Bookmarks</span>
+                                <ol>
+                                {projects && this.props.profile.bookMarks && projects.map(project=>{
+                                    if(this.props.profile.bookMarks.includes(project.id))return(
+                                        <Link to={'/project/' + project.id} key={project.id}>
+                                                <li class="purple-text text-accent-2"><h6>{project.title}</h6></li>
+                                        </Link>
+                                    )
+                                    else
+                                        return null
+                                })}
+                                </ol>  
                             </div>
-                            </Link>
-                        )
-                        else
-                            return null
-                    })}                        
+                        </div>        
                     </div>
                 </div>
             </div>  

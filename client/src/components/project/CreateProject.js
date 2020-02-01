@@ -69,6 +69,9 @@ export class CreateProject extends Component {
             return<Redirect to='/signin'/>    
     return (
       <div className="container">
+        <br />
+        <br />
+        <br />
         <form onSubmit={this.handleSubmit} className="white">
             <h5 className="grey-text text-darken-3">Create new post</h5>
             <div className="input-field">
@@ -76,7 +79,7 @@ export class CreateProject extends Component {
               <input type="text" id="title" onChange={this.handleChange}/>  
             </div>
             <div className="input-field">
-              <label htmlFor="content">Project Content</label>
+              <label htmlFor="content">Post Content</label>
               <textarea type="text" id="content" className="materialize-textarea" onChange={this.handleChange}/>  
             </div>
             <div className="input-field">
@@ -94,7 +97,7 @@ export class CreateProject extends Component {
               <br/>
             </div>
             <div className="input-field">
-              <button className="btn yellow lighten-1 z-depth-2 blue-text text-darken-2">Create</button>  
+              <button className="btn purple accent-2 z-depth-2 z-depth-2">Create</button>  
             </div>
             <div className="red-text center">
               {this.errors!==[] && (

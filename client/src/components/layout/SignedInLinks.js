@@ -5,14 +5,14 @@ import { CreateProjectModal} from '../project/CreateProjectModal';
 import {signOut} from '../../store/actions/authActions'
 import {createProject} from '../../store/actions/projectActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFire, faBell, faEdit, faPencilAlt, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons'
+import { faFire, faBell, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons'
 
 export class SignedInLinks extends Component {    
     render(){
         return (
             <ul className="right">
             <li><CreateProjectModal createProject={this.props.createProject}/></li>
-            <li><NavLink to='/gratitudejournal'><FontAwesomeIcon icon={faBook}/></NavLink></li>
+            <li><NavLink to='/yourposts'><FontAwesomeIcon icon={faBook}/></NavLink></li>
             <li><NavLink to='/gratitudejournal'><FontAwesomeIcon icon={faFire} /> {this.props.profile.streak}</NavLink></li>
             <li><NavLink to='/gratitudejournal'><FontAwesomeIcon icon={faBell} /></NavLink></li>
             <li><a onClick={this.props.signOut}><FontAwesomeIcon icon={faSignOutAlt}/></a></li>

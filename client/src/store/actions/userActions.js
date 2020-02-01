@@ -18,9 +18,11 @@ export const updateStreak=(data)=>{
         const firestore = getFirestore();
         const Id = getState().firebase.auth.uid;
         console.log(data.streak);
-        firestore.collection('users').doc(Id).update({
+        data.mode===1 ? firestore.collection('users').doc(Id).update({
             streak: data.streak,
             lastUpdated:new Date()
+        }):firestore.collection('users').doc(Id).update({
+            streak: data.streak,
         }).then(()=>{
             dispath({type: 'UPDATE_STREAK', data});
         }).catch((err)=>{

@@ -9,10 +9,10 @@ const Navbar = (props) => {
     console.log(auth);
     const links=auth.uid? <SignedInLinks profile={profile} />:<SignedOutLinks/>;
     return (
-        <nav>
-            <div className="nav-wrapper purple accent-2">
-                <Link to='/' className="brand-logo left hide-on-med-and-up"><i class="large material-icons">mood</i></Link>
-                <Link to='/' className="brand-logo center hide-on-small-only "><i class="large material-icons ">mood</i>Happyfier</Link>
+        <nav className="purple accent-2" style={{position:'fixed', zIndex:1}}>
+            <div className="container nav-wrapper">
+                <Link to={auth.uid ? '/' : '/signin'} className="brand-logo left hide-on-med-and-up"><i class="large material-icons">mood</i></Link>
+                <Link to={auth.uid ? '/' : '/signin'} className="brand-logo left hide-on-small-only "><i class="large material-icons ">mood</i>Happyfier</Link>
                 <ul id="nav-mobile" class="right">
                     <li>{links}</li>
                 </ul>

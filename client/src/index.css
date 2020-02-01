@@ -6,8 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: url(/img/wallp1.jpg) ; */
-  background-repeat: repeat;
+  /* background: #f3e5f5 ; */
+  /* background-repeat: repeat; */
 }
 
 code {
@@ -17,7 +17,7 @@ code {
 
 form{
   padding: 20px;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 form button, form h5{
@@ -28,7 +28,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]){
-  border-color: #ec407a;
+  border-color: #f3e5f5;
   box-shadow: none;
 }
 
