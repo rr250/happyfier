@@ -34,7 +34,9 @@ class Dashboard extends Component{
                 this.setState({streak:this.props.profile.streak})
             }
         }
-        this.props.updateStreak(this.state)
+        if(this.props.auth.uid){
+            this.props.updateStreak(this.state)
+        }
         if(this.props.auth.uid){
         messaging.requestPermission()
           .then(async function() {
