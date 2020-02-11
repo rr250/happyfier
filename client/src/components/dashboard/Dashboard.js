@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Notifications from './Notifications'
 import {GratitudeJournal} from '../project/GratitudeJournal';
 import ProjectList from '../project/ProjectList'
 import {connect} from 'react-redux'
@@ -10,7 +9,7 @@ import {addToken} from '../../store/actions/userActions'
 import {createProject} from '../../store/actions/projectActions'
 import {updateStreak} from '../../store/actions/userActions'
 import { messaging } from '../../config/fbConfig'
-import {Link} from 'react-router-dom'
+import Bookmarks from './Bookmarks';
 
 
 class Dashboard extends Component{
@@ -52,7 +51,7 @@ class Dashboard extends Component{
       } 
     render(){
         
-        const { projects,auth,notifications }=this.props;
+        const { projects,auth }=this.props;
         if(!auth.uid)
             return<Redirect to='/signin'/>    
         return(
@@ -70,23 +69,7 @@ class Dashboard extends Component{
                     </div>                    
                     <div className="col s12 m3 offset-m1">
                     <br />
-                        <Notifications notifications={notifications}/>
-                        <div className="card z-depth-0 purple lighten-5" style={{position:'fixed', zIndex:0, top:'50%'}}>
-                            <div className="card-content">
-                                <span className="card-title">Bookmarks</span>
-                                <ol>
-                                {projects && this.props.profile.bookMarks && projects.map(project=>{
-                                    if(this.props.profile.bookMarks.includes(project.id))return(
-                                        <Link to={'/project/' + project.id} key={project.id}>
-                                                <li class="purple-text text-accent-2"><h6>{project.title}</h6></li>
-                                        </Link>
-                                    )
-                                    else
-                                        return null
-                                })}
-                                </ol>  
-                            </div>
-                        </div>                      
+                        <Bookmarks profile={this.props.profile} projects={projects} />                   
                     </div>
                 </div>
             </div>  
@@ -99,7 +82,6 @@ const mapStateToProps=(state)=>{
     return{
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth,
-        notifications: state.firestore.ordered.notifications,
         profile: state.firebase.profile,
         users: state.firestore.data.users,
     }
@@ -115,5 +97,5 @@ const mapDispatchToProps=(dispatch)=>{
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([{collection: 'projects',orderBy:['createdAt','desc']}, {collection: 'notifications', limit:5, orderBy:['time','desc']}])
+    firestoreConnect([{collection: 'projects',orderBy:['createdAt','desc']}])
 )(Dashboard)

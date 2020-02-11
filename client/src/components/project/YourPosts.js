@@ -5,6 +5,7 @@ import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
 import {deleteProject} from '../../store/actions/projectActions'
 import {Link} from 'react-router-dom'
+import Bookmarks from '../dashboard/Bookmarks'
 
 class YourPosts extends Component{
     handleDelete=(id,e)=>{
@@ -44,22 +45,7 @@ class YourPosts extends Component{
                     })}                        
                     </div>
                     <div className="col s12 m4 offset-m1">
-                        <div className="card z-depth-0 purple lighten-5">
-                            <div className="card-content">
-                                <span className="card-title">Bookmarks</span>
-                                <ol>
-                                {projects && this.props.profile.bookMarks && projects.map(project=>{
-                                    if(this.props.profile.bookMarks.includes(project.id))return(
-                                        <Link to={'/project/' + project.id} key={project.id}>
-                                                <li class="purple-text text-accent-2"><h6>{project.title}</h6></li>
-                                        </Link>
-                                    )
-                                    else
-                                        return null
-                                })}
-                                </ol>  
-                            </div>
-                        </div>        
+                        <Bookmarks profile={this.props.profile} projects={projects} />
                     </div>
                 </div>
             </div>  
