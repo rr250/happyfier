@@ -55,7 +55,6 @@ export const signUpWithGoogle = ()=>{
         const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(googleAuthProvider)
         .then((resp) => {
-            console.log(resp)
             if(resp.additionalUserInfo.isNewUser){
             return firestore.collection('users').doc(resp.user.uid).set({
                 firstName: resp.user.displayName.split(" ")[0],

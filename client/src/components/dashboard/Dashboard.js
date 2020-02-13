@@ -35,7 +35,7 @@ class Dashboard extends Component{
         if(this.props.auth.uid){
             this.props.updateStreak(this.state)
         }
-        if(this.props.auth.uid){
+        if(this.props.auth.uid && this.props.profile.token===''){
         messaging.requestPermission()
           .then(async function() {
             token = await messaging.getToken();
@@ -91,7 +91,6 @@ class Dashboard extends Component{
 }
 
 const mapStateToProps=(state)=>{
-    console.log(state);
     return{
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth,

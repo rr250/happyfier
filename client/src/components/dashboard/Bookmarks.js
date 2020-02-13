@@ -12,7 +12,7 @@ const Bookmarks = (props) => {
                 {projects && profile.bookMarks && projects.map(project=>{
                     if(profile.bookMarks.includes(project.id))return(
                         <Link to={'/project/' + project.id} key={project.id}>
-                                <li class="purple-text text-accent-2"><h6>{project.title}</h6></li>
+                                <li className="purple-text text-accent-2"><h6>{project.title}</h6></li>
                         </Link>
                     )
                     else

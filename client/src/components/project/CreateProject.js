@@ -29,7 +29,6 @@ export class CreateProject extends Component {
   }  
 
   displayErrors = (errors) => {
-    console.log(errors)
      return(<p>{errors}</p>)
   };
 
@@ -42,18 +41,15 @@ export class CreateProject extends Component {
     e.preventDefault();
     if(this.isFormValid()) {
       this.setState({ errors: [], loading: true });
-    console.log(this.state)
     this.props.createProject(this.state)
     this.props.history.push('/')
     }
   }  
 
   handleCheckAnon=(e)=>{
-    console.log(this.state.anon)
     this.setState({
       anon: !(this.state.anon)
     });
-    console.log(this.state.anon)
   } 
 
   handleCheckDiary=(e)=>{
@@ -63,7 +59,6 @@ export class CreateProject extends Component {
   } 
   
   render() {
-    console.log(this);
     const { auth }=this.props;
         if(!auth.uid)
             return<Redirect to='/signin'/>    
@@ -111,8 +106,6 @@ export class CreateProject extends Component {
 }
 
 const mapStateToProps=(state)=>{
-  console.log(state);
-  console.log(this);
   return{
       auth: state.firebase.auth
   }

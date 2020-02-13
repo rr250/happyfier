@@ -5,8 +5,7 @@ import { CreateProjectModal} from '../project/CreateProjectModal';
 import {signOut} from '../../store/actions/authActions'
 import {createProject} from '../../store/actions/projectActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFire, faBell, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons'
-import M from 'materialize-css';  
+import { faFire, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons'
 import Notifications from '../dashboard/Notifications';
 import {compose} from 'redux'
 import {firestoreConnect} from 'react-redux-firebase'
@@ -28,7 +27,6 @@ export class SignedInLinks extends Component {
 }
 
 const mapStateToProps=(state)=>{
-    console.log(state);
     return{
         notifications: state.firestore.ordered.notifications,
     }

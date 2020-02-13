@@ -8,7 +8,6 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 class ProjectSummary extends Component{ 
   BookMarkToggle=(e)=>{
     e.preventDefault();
-    console.log(this.props.project.id);
     this.props.toggleBookMark(this.props.auth.uid,this.props.project.id)
   }
     render(){
@@ -21,7 +20,7 @@ class ProjectSummary extends Component{
 				<i className="material-icons" onClick={this.BookMarkToggle} style={{position: 'absolute', left: '97%', marginLeft: '-50px', color:'#e040fb'}}>{this.props.profile.bookMarks && this.props.profile.bookMarks.includes(this.props.project.id)?"bookmark":"bookmark_border"}</i></p>
                 
 				<br/>
-				<div class="card-action ">                  
+				<div className="card-action ">                  
                 </div>
 				<div style={{position: 'relative', top:"-25px"}}>			  	
 					<p className="purple-text text-accent-2 text-bold">{this.props.project.title}</p>
@@ -38,7 +37,6 @@ class ProjectSummary extends Component{
   }
 
   const mapStateToProps=(state)=>{
-    console.log(state);
     return{
         auth: state.firebase.auth,
         profile: state.firebase.profile,

@@ -4,13 +4,11 @@ import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {Redirect} from 'react-router-dom'
 import {deleteProject} from '../../store/actions/projectActions'
-import {Link} from 'react-router-dom'
 import Bookmarks from '../dashboard/Bookmarks'
 
 class YourPosts extends Component{
     handleDelete=(id,e)=>{
         e.preventDefault();
-        console.log(id);
         this.props.deleteProject(id)
     }  
 
@@ -30,9 +28,9 @@ class YourPosts extends Component{
                     <h4 className="grey-text darken-4">Personal Diary</h4>
                     {projects && projects.map(project=>{
                         if(auth.uid===project.authorId)return(
-                            <div class="card">
-                                <div class="card-content">
-                                    <span class="card-title">{project.title}</span>
+                            <div className="card">
+                                <div className="card-content">
+                                    <span className="card-title">{project.title}</span>
                                     <p>{project.content}</p>
                                     <div className="input-field">
                                         <button className="btn purple accent-2 z-depth-2 z-depth-2" onClick={(e) => this.handleDelete(project.id, e)}>Delete</button>  
@@ -54,7 +52,6 @@ class YourPosts extends Component{
 }
 
 const mapStateToProps=(state)=>{
-    console.log(state);
     return{
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth,

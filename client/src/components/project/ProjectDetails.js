@@ -17,7 +17,6 @@ class ProjectDetails extends Component {
 		});
 	} 
 	handleSubmit=(e)=>{
-		//console.log(this.state)
 		if(this.state.comment.length!==0 && e.key==='Enter'){
 			this.props.postComment(this.state)
 			this.setState({

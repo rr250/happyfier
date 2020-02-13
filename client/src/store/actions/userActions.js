@@ -2,7 +2,6 @@ export const addToken=(token)=>{
     return(dispath, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         const Id = getState().firebase.auth.uid;
-        console.log(token);
         firestore.collection('users').doc(Id).update({
             token: token
         }).then(()=>{
@@ -17,7 +16,6 @@ export const updateStreak=(data)=>{
     return(dispath, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         const Id = getState().firebase.auth.uid;
-        console.log(data.streak);
         data.mode===1 ? firestore.collection('users').doc(Id).update({
             streak: data.streak,
             lastUpdated:new Date()

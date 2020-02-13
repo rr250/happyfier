@@ -32,7 +32,6 @@ export class GratitudeJournal extends Component {
   }  
 
   displayErrors = (errors) => {
-    console.log(errors)
      return(<p>{errors}</p>)
   };
 
@@ -45,7 +44,6 @@ export class GratitudeJournal extends Component {
     e.preventDefault();
     if(this.isFormValid()) {
       this.setState({ errors: [], loading: true });
-        console.log(this.state)
         this.props.createProject(this.state)
         const diff=Math.floor(Math.abs(new Date(profile.lastUpdated["seconds"]*1000).getTime()-this.state.currentDate.getTime())/(1000 * 3600 * 24))
         if(diff===1){
@@ -90,7 +88,6 @@ export class GratitudeJournal extends Component {
 }
 
 const mapStateToProps=(state)=>{
-  console.log(state);
   return{
       auth: state.firebase.auth,
       users: state.firestore.data.users,

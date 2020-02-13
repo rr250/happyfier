@@ -37,7 +37,6 @@ export class CreateProjectModal extends Component {
   }  
 
   displayErrors = (errors) => {
-    console.log(errors)
      return(<p>{errors}</p>)
   };
 
@@ -50,18 +49,15 @@ export class CreateProjectModal extends Component {
     e.preventDefault();
     if(this.isFormValid()) {
       this.setState({ errors: [], loading: true });
-    console.log(this.state)
     this.props.createProject(this.state)
     this.setState({ open: false });
     }
   }  
 
   handleCheckAnon=(e)=>{
-    console.log(this.state.anon)
     this.setState({
       anon: !(this.state.anon)
     });
-    console.log(this.state.anon)
   } 
 
   handleCheckDiary=(e)=>{
@@ -78,13 +74,12 @@ export class CreateProjectModal extends Component {
         padding:0
       }
     };
-    console.log(this);
     return (
       <div>
         <a ><FontAwesomeIcon icon={faPencilAlt} onClick={this.onOpenModal}/></a>
         <Modal open={this.state.open} onClose={this.onCloseModal} center styles={bg}>
           <div style={{position: 'absolute', left: '100%', marginLeft: '-50px'}}>
-            <NavLink to='/create'><FontAwesomeIcon icon={faExternalLinkAlt} onClick={this.onCloseModal} color='gray' size="1.7x"/></NavLink>
+            <NavLink to='/create'><FontAwesomeIcon icon={faExternalLinkAlt} onClick={this.onCloseModal} color='gray'/></NavLink>
           </div>
           <div className="container">
             <form onSubmit={handleSubmit} className="white">

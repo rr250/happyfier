@@ -24,12 +24,10 @@ export class SignUp extends Component {
   }
 
   isFormEmpty = ({ firstName, lastName, email, password }) => {
-      console.log(firstName.length)
       return !firstName.length || !lastName.length || !email.length || !password.length;
   }  
 
   displayErrors = (errors) => {
-    console.log(errors)
      return(<p>{errors}</p>)
     };
 
@@ -42,8 +40,6 @@ export class SignUp extends Component {
     e.preventDefault();
     if(this.isFormValid()) {
       this.setState({ errors: [], loading: true });
-
-    console.log(this.state);
     this.props.signUp(this.state);
     }
   }  
@@ -91,7 +87,6 @@ export class SignUp extends Component {
 }
 
 const mapStateToProps=(state)=>{
-  console.log(state);
   return{
       auth: state.firebase.auth,
       authError: state.auth.authError

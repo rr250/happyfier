@@ -18,11 +18,10 @@ export class Notifications extends Component{
     }
     render(){
         const notifications=this.props.notifications;
-        console.log(notifications)
     return(
         <div>
-            <a class='dropdown-trigger' data-hover="true" data-target="dropdown1"><FontAwesomeIcon icon={faBell} /></a>
-            <div className="section" id='dropdown1' class='dropdown-content'>
+            <a className='dropdown-trigger' data-hover="true" data-target="dropdown1"><FontAwesomeIcon icon={faBell} /></a>
+            <div className="section" id='dropdown1' className='dropdown-content'>
                 <div className="card z-depth-0">
                     <div className="card-content">
                         {notifications && notifications.map(item=>{
