@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom'
 const Bookmarks = (props) => {
     const {profile,projects}=props;
     return(
-        <div className="card z-depth-0 purple lighten-5" style={{position:'fixed', zIndex:0}}>
+        <div className="col m3 s12 "style={{ position:'fixed', zIndex:0}}>
+        <div className="card z-depth-0 purple lighten-5" style={{}}>
             <div className="card-content">
                 <span className="card-title">Bookmarks</span>
                 <ol>
@@ -20,6 +21,7 @@ const Bookmarks = (props) => {
                 </ol>  
             </div>
         </div>   
+        </div>
     )
 }
 

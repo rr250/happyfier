@@ -69,3 +69,20 @@ export const deleteProject=(id)=>{
     }
 };
 
+export const postComment=(data)=>{
+    return(dispath, getState, {getFirebase, getFirestore})=>{
+        const firestore = getFirestore();
+        const firebase=getFirebase();
+        const profile = getState().firebase.profile;
+        const commentDoc={
+            commenterId : getState().firebase.auth.uid,
+            commentDate : new Date(),
+            commenterFirstName : profile.firstName,
+            commenterLastName : profile.lastName,
+            comment : data.comment
+        };
+        firestore.collection('projects').doc(data.projectId).update({
+            comments: firebase.firestore.FieldValue.arrayUnion(commentDoc)
+        })
+    }
+}
