@@ -24,7 +24,6 @@ class Dashboard extends Component{
         var that = this
         var token;
         if(this && this.props && !this.props.profile.isEmpty){
-            console.log(this.props)
             const diff=Math.floor(Math.abs(new Date(this.props.profile.lastUpdated["seconds"]*1000).getTime()-this.state.currentDate.getTime())/(1000 * 3600 * 24))
             if(diff===1){
                 this.setState({streak:this.props.profile.streak+1})
@@ -47,6 +46,20 @@ class Dashboard extends Component{
             console.log("Unable to get permission to notify.", err);
           });
         }
+        if(this.props.auth.uid){
+            messaging.onTokenRefresh(() => {
+                messaging.getToken().then((refreshedToken) => {
+                  console.log('Token refreshed.');
+                  that.props.addToken(refreshedToken)
+                  console.log(refreshedToken,that);
+                }).catch((err) => {
+                  console.log('Unable to retrieve refreshed token ', err);
+                });
+            });
+        }
+        messaging.onMessage((payload) => {
+            console.log('Message received. ', payload);
+        });
         navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
       } 
     render(){
