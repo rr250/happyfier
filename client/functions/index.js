@@ -14,7 +14,7 @@ exports.projectCreated = functions.firestore
     const project=snap.data();
     if(project.anon===false && project.diary===false){
       const notification={
-          content: 'Added a new project',
+          content: 'added a new post',
           user: project.authorFirstName,
           time: admin.firestore.FieldValue.serverTimestamp(),
       };
@@ -28,7 +28,7 @@ exports.userJoined = functions.auth.user()
     .doc(user.uid).get().then(snap=>{
         const newUser = snap.data();
         const notification={
-            content: 'Joined the party',
+            content: 'joined the chapter',
             user: newUser.firstName,
             time: admin.firestore.FieldValue.serverTimestamp()
         }
@@ -60,13 +60,19 @@ exports.projectNotification = functions.firestore
     if(project.anon===false && project.diary===false){
       const message= {
         topic: "all",
-        notification: {
-          title: 'New Post',
-          body: project.authorFirstName+' '+'Added a new project',
-        },
+        // notification: {
+        //   title: 'New Post',
+        //   body: project.authorFirstName+' '+'added a new post',
+        // },
         webpush: {
           fcm_options: {
             link: "https://happyfier.firebaseapp.com/"
+          },
+          notification: {
+            title: 'New Post',
+            body: project.authorFirstName+' '+'added a new post',
+            icon: '/happy-xxl.png',
+            badge: '/happy-xxl.png'
           }
         }
       }

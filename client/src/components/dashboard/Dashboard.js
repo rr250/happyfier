@@ -35,7 +35,7 @@ class Dashboard extends Component{
         if(this.props.auth.uid){
             this.props.updateStreak(this.state)
         }
-        if(this.props.auth.uid && this.props.profile.token===''){
+        if(this.props.auth.uid){
         messaging.requestPermission()
           .then(async function() {
             token = await messaging.getToken();

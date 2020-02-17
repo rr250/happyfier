@@ -38,7 +38,8 @@ export const signUp = (newUser)=>{
                 initials: newUser.firstName[0]+newUser.lastName[0],
                 streak:0,
                 bookMarks:[],
-                lastUpdated:new Date()
+                lastUpdated:new Date(),
+                token:''
             })
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
@@ -62,7 +63,8 @@ export const signUpWithGoogle = ()=>{
                 initials: resp.user.displayName.split(" ")[0][0]+resp.user.displayName.split(" ")[1][0],
                 streak:0,
                 bookMarks:[],
-                lastUpdated:new Date()
+                lastUpdated:new Date(),
+                token:''
             })}
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
