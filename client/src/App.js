@@ -7,6 +7,7 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from './components/auth/SignUp';
 import CreateProject from './components/project/CreateProject'
 import YourPosts from './components/project/YourPosts'
+import Chat from './components/chat/Chat';
   
 class App extends Component {
   
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path="/create" component={CreateProject} />
             <Route path="/yourposts" component={YourPosts} />
           </Switch>
+          <Chat />
         </div>
       </BrowserRouter>
     );
