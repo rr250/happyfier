@@ -57,27 +57,49 @@ exports.projectNotification = functions.firestore
 .document('projects/{projectId}')
 .onCreate((snap, context)=>{
     const project=snap.data();
-    if(project.anon===false && project.diary===false){
-      const message= {
-        topic: "all",
-        // notification: {
-        //   title: 'New Post',
-        //   body: project.authorFirstName+' '+'added a new post',
-        // },
-        webpush: {
-          fcm_options: {
-            link: "https://happyfier.firebaseapp.com/"
-          },
-          notification: {
-            title: 'New Post',
-            body: project.authorFirstName+' '+'added a new post',
-            icon: '/happy-xxl.png',
-            badge: '/happy-xxl.png'
+    if(project.diary===false){
+      if(project.anon===true){
+        const message= {
+          topic: "all",
+          // notification: {
+          //   title: 'New Post',
+          //   body: project.authorFirstName+' '+'added a new post',
+          // },
+          webpush: {
+            fcm_options: {
+              link: "https://happyfier.firebaseapp.com/"
+            },
+            notification: {
+              title: 'New Post',
+              body: 'Someone added a new post',
+              icon: '/happy-xxl.png',
+              badge: '/happy-xxl.png'
+            }
           }
-        }
+        }    
+        return sendNotification(message)
       }
-
-      return sendNotification(message)
+      else{
+        const message= {
+          topic: "all",
+          // notification: {
+          //   title: 'New Post',
+          //   body: project.authorFirstName+' '+'added a new post',
+          // },
+          webpush: {
+            fcm_options: {
+              link: "https://happyfier.firebaseapp.com/"
+            },
+            notification: {
+              title: 'New Post',
+              body: project.authorFirstName+' '+'added a new post',
+              icon: '/happy-xxl.png',
+              badge: '/happy-xxl.png'
+            }
+          }
+        }    
+        return sendNotification(message)
+      }
     }
 });
 

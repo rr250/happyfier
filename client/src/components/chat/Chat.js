@@ -18,28 +18,6 @@ class Chat extends Component{
         showBot: false
     };
 
-    show=(e)=> {
-        e.preventDefault();
-        this.setState({showBot: true});
-    }
-
-    hide=(e)=> {
-        e.preventDefault();
-        this.setState({showBot: false});
-    }
-
-    componentDidMount(){
-        let dropdowns1 = document.querySelectorAll(".dropdown-trigger1");
-        let options = {
-        inDuration: 300,
-        outDuration: 225,
-        belowOrigin: true,
-        constrainWidth: false,
-        coverTrigger:false
-        };
-        M.Dropdown.init(dropdowns1, options);
-    }
-
     componentDidUpdate() {
         let dropdowns1 = document.querySelectorAll(".dropdown-trigger1");
         let options = {
@@ -58,49 +36,41 @@ class Chat extends Component{
         }
     }
 
-    renderMessages(messages) {
-        if (messages ) {
-            return messages.map((message, i) => {
-                    return <Message key={i} message={message} userId={this.props.auth.uid} otherUserId={this.state.otherUserId}/>;
-                }
-            )
-        } else {
-            return null;
+    componentWillReceiveProps(nextProps){
+        if(this.state.messagesId){
+            this.setState({ 
+                messages: nextProps.messages.find((message)=> {return (message.id===this.state.messagesId)}).messages
+            });
         }
     }
 
+    toggleChat=(e)=>{
+        e.preventDefault();
+        this.setState({showBot: !this.state.showBot});
+    }
+
     selectUser=(e)=> {
+        e.preventDefault();
         const otherUserId=e.target.id;
         const userId=this.props.auth.uid;
         const messagesId= otherUserId < userId ?`${otherUserId}${userId}` : `${userId}${otherUserId}`;
-        console.log(messagesId,userId,otherUserId)
         this.setState({
-            otherUserName: e.target.innerText,
+            otherUserName: e.target.innerText.split(' ')[0],
             otherUserId: e.target.id,
             messagesId: messagesId
         })
         if(this.props.messages.find((message)=> {return (message.id===messagesId)})===undefined){
             this.props.createChat(messagesId)
-            this.setState({
-                messages:this.props.messages.find((message)=> {return (message.id===messagesId)}).messages
-            })
-            console.log(1,this.props,this.state)
         }
         else{
             this.setState({
                 messages:this.props.messages.find((message)=> {return (message.id===messagesId)}).messages
             })
-            console.log(2,this.props,this.state)
         }
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
         if ( this.talkInput ) {
             this.talkInput.focus();
         }
-    }
-
-    submitMessage=(data)=>{
-        this.props.postMessage(data)
-        console.log(data)
     }
 
     submitChat=(e)=> {
@@ -110,39 +80,24 @@ class Chat extends Component{
             messagesId:messagesId
         }
         
-        if (e.key === 'Enter') {
-            this.setState({ 
-                messages: this.props.messages.find((message)=> {return (message.id===messagesId)}).messages
-            });
-            this.submitMessage(data)
-            const messageDoc={
-                userId : this.props.auth.uid,
-                messageDate : new Date(),
-                userFirstName : this.props.profile.firstName,
-                userLastName : this.props.profile.lastName,
-                content : data.content,
-                userInitials: this.props.profile.firstName[0]+this.props.profile.lastName[0],
-            };
+        if (e.key === 'Enter' && data.content.length>0) {
             e.target.value = '';
-            this.setState({
-                messages:[...this.state.messages,messageDoc]
-            })
+            this.props.postMessage(data)
         }
     }
 
     render() {
         const users=this.props.users
-        console.log(this.props,this.state)
         if(!this.props.auth.uid)
             return<Redirect to='/signin'/> 
         if (this.state.showBot) {
             return (
-                <div style={{ minHeight: 500, maxHeight: 470, width:400, position: 'fixed', bottom: 0, right: 0, border: '1px solid lightgray'}}>
+                <div className="conatiner" style={{ minHeight: '70%', maxHeight: '70%', width:'30%', position: 'fixed', bottom: 0, right: 0, border: '1px solid lightgray'}}>
                     <nav>
                         <div className="nav-wrapper purple accent-2">
-                            <a className="brand-logo center">{this.state.otherUserName?this.state.otherUserName:'Chat'}</a>
-                            <ul id="nav-mobile" className="hide-on-med-and-down">
-                                <li className="right"><a onClick={this.hide}>Close</a></li>
+                            <a className="brand-logo center" onClick={this.toggleChat}>{this.state.otherUserName?this.state.otherUserName:'Chat'}</a>
+                            <ul id="nav-mobile">
+                                <li className="right"><a onClick={this.toggleChat}>Close</a></li>
                                 <li className="left"><a className='dropdown-trigger1' data-hover="true" data-target="dropdown11">Chat</a>
                                     <div className="section" id='dropdown11' className='dropdown-content'>
                                         <div className="card z-depth-0">
@@ -150,15 +105,15 @@ class Chat extends Component{
                                                 {users && users.map((user,i)=>{
                                                     if(i%2===0){
                                                         return(
-                                                            <li>
-                                                                <span className="purple-text text-accent-2" id={user.id} key={i} onClick={this.selectUser} id2={user.firstName+' '+user.lastName}>{user.firstName} {user.lastName}</span>
+                                                            <li key={i}>
+                                                                <span className="purple-text text-accent-2" id={user.id} onClick={this.selectUser}>{user.firstName} {user.lastName}</span>
                                                             </li>
                                                         )
                                                     }
                                                     else{
                                                         return(
-                                                            <li>
-                                                                <span className="grey-text text-darken-2" id={user.id} key={i} onClick={this.selectUser} id2={user.firstName+' '+user.lastName}>{user.firstName} {user.lastName}</span>
+                                                            <li key={i}>
+                                                                <span className="grey-text text-darken-2" id={user.id} key={i} onClick={this.selectUser}>{user.firstName} {user.lastName}</span>
                                                             </li>
                                                         )
                                                     }
@@ -171,15 +126,19 @@ class Chat extends Component{
                         </div>
                     </nav>
 
-                    <div id="chatbot"  style={{ minHeight: 350, maxHeight: 350, width:'100%', overflow: 'auto'}}>
+                    <div id="chat"  style={{ minHeight: 350, maxHeight: 350, width:'100%', overflow: 'auto'}}>
 
-                        {this.renderMessages(this.state.messages)}
+                        {this.state.messagesId!=='' ? this.state.messages && this.state.messages.map((message, i) => {
+                            return <Message key={i} message={message} userId={this.props.auth.uid} otherUserId={this.state.otherUserId} diff={Math.floor(Math.abs(new Date(message.messageDate["seconds"]*1000).getTime()-(new Date()).getTime())/(1000 * 3600 * 24))}/>;
+                        }):['1'].map((key)=>{
+                            return <Message key={0} message={{content:"Select an User to Chat with", userId:'xyz'}} userId={this.props.auth.uid} otherUserId={this.state.otherUserId} diff={0}/>;
+                        })}
                         <div ref={(el) => { this.messagesEnd = el; }}
                                 style={{ float:"left", clear: "both" }}>
                         </div>
                     </div>
 
-                    <div className=" col s12" >
+                    <div className=" col s12" style={{position:'fixed', bottom: 0, zIndex:1}}>
                         <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}} ref={(input) => { this.talkInput = input; }} placeholder="type a message:"  onKeyPress={this.submitChat} id="user_says" type="text" />
                     </div>
 
@@ -187,12 +146,12 @@ class Chat extends Component{
             );
         } else {
             return (
-                <div style={{ minHeight: 40, maxHeight: 500, width:400, position: 'fixed', bottom: 0, right: 0, border: '1px solid lightgray'}}>
+                <div style={{ minHeight: '10%', maxHeight: '75%', width:'30%', position: 'fixed', bottom: 0, right: 0, border: '1px solid lightgray'}}>
                     <nav>
                         <div className="nav-wrapper purple accent-2">
-                            <a className="brand-logo">Chat</a>
+                            <a className="brand-logo center" onClick={this.toggleChat}>Chat</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><a onClick={this.show}>Show</a></li>
+                                <li><a onClick={this.toggleChat}>Show</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -213,7 +172,6 @@ const mapDispatchToProps=(dispatch)=>{
 }
 
 const mapStateToProps=(state)=>{
-    console.log(state);
     return{
         messages: state.firestore.ordered.messages,
         auth: state.firebase.auth,

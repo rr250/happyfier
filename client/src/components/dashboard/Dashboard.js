@@ -39,7 +39,6 @@ class Dashboard extends Component{
         messaging.requestPermission()
           .then(async function() {
             token = await messaging.getToken();
-            console.log(token,that);
             that.props.addToken(token)
           })
           .catch(function(err) {

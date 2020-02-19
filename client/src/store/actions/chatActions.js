@@ -3,7 +3,6 @@ export const createChat=(messagesId)=>{
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
-        console.log(messagesId)
         firestore.collection('messages').doc(messagesId).set({
             
         }).then(()=>{
