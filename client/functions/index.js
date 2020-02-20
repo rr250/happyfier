@@ -12,13 +12,23 @@ exports.projectCreated = functions.firestore
 .document('projects/{projectId}')
 .onCreate((snap, context)=>{
     const project=snap.data();
-    if(project.anon===false && project.diary===false){
-      const notification={
+    if(project.diary===false){
+      if(project.anon===true){
+        const notification={
+          content: 'added a new post',
+          user: 'Someone',
+          time: admin.firestore.FieldValue.serverTimestamp(),
+      };
+      return createNotification(notification);
+      }
+      else{
+        const notification={
           content: 'added a new post',
           user: project.authorFirstName,
           time: admin.firestore.FieldValue.serverTimestamp(),
       };
       return createNotification(notification);
+      }
     }
 });
 
