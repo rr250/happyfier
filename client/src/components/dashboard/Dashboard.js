@@ -35,6 +35,7 @@ class Dashboard extends Component{
         }
         if(this.props.auth.uid){
             this.props.updateStreak(this.state)
+            this.props.toggleStatus(this.props.auth.uid)
         }
         if(this.props.auth.uid){
         messaging.requestPermission()
@@ -77,7 +78,7 @@ class Dashboard extends Component{
             return this.doSomethingBeforeUnload();
         });
     };
-    
+
     render(){
         
         const { projects,auth }=this.props;

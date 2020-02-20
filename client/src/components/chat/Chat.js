@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import { createChat,postMessage } from '../../store/actions/chatActions';
-import {toggleStatus} from '../../store/actions/userActions'
 import Message from './Message';
 import {Redirect} from 'react-router-dom'
 import M from 'materialize-css';  
@@ -18,7 +17,8 @@ class Chat extends Component{
         otherUserName: '',
         messagesId: '',
         messages: [],
-        showBot: false
+        showBot: false,
+        users:[]
     };
 
     componentDidUpdate() {
@@ -36,10 +36,6 @@ class Chat extends Component{
             if ( this.talkInput ) {
                 this.talkInput.focus();
             }
-            if(this.props.profile.status===false){
-                console.log(this)
-                this.props.toggleStatus(this.props.auth.uid)
-            }
         }
     }
 
@@ -49,6 +45,10 @@ class Chat extends Component{
                 messages: nextProps.messages.find((message)=> {return (message.id===this.state.messagesId)}).messages
             });
         }
+        this.setState({ 
+            users: nextProps.users
+        });
+        console.log(nextProps)
     }
 
     toggleChat=(e)=>{
@@ -94,7 +94,6 @@ class Chat extends Component{
     }
 
     render() {
-        const users=this.props.users
         if(!this.props.auth.uid)
             return<Redirect to='/signin'/> 
         if (this.state.showBot) {
@@ -109,7 +108,7 @@ class Chat extends Component{
                                     <div className="section" id='dropdown11' className='dropdown-content'>
                                         <div className="card z-depth-0">
                                             <div className="card-content">
-                                                {users && users.map((user,i)=>{
+                                                {this.state.users && this.state.users.map((user,i)=>{
                                                     if(i%2===0){
                                                         return(
                                                             <li key={i} style={{width: '120%'}}>
@@ -174,8 +173,7 @@ class Chat extends Component{
 const mapDispatchToProps=(dispatch)=>{
     return{
         createChat:(data)=>dispatch(createChat(data)),
-        postMessage:(data)=>dispatch(postMessage(data)),
-        toggleStatus:(id)=>dispatch(toggleStatus(id))
+        postMessage:(data)=>dispatch(postMessage(data))
     }
 }
 
