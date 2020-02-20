@@ -15,6 +15,10 @@ const projectReducer=(state= initState,action)=>{
         case 'TOGGLE_BOOKMARK':
             return state;
         case 'TOGGLE_BOOKMARK_ERROR':
+            return state;
+        case 'TOGGLE_STATUS':
+            return state;
+        case 'TOGGLE_STATUS_ERROR':
             return state; 
         default:
             return state

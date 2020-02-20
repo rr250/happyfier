@@ -45,3 +45,18 @@ export const toggleBookMark=(id,projectId)=>{
         })
     }
 };
+
+export const toggleStatus=(id)=>{
+    return(dispath, getState, {getFirebase, getFirestore})=>{
+        const firestore = getFirestore();
+        const firebase=getFirebase();
+        const profile = getState().firebase.profile;
+        firestore.collection('users').doc(id).update({
+            status: !profile.status
+            }).then(()=>{
+            dispath({type: 'TOGGLE_STATUS', id});
+        }).catch((err)=>{
+            dispath({type: 'TOGGLE_STATUS_ERROR', err});
+        })
+    }
+}

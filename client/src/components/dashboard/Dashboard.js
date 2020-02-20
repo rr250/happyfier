@@ -8,6 +8,7 @@ import {Redirect} from 'react-router-dom'
 import {addToken} from '../../store/actions/userActions'
 import {createProject} from '../../store/actions/projectActions'
 import {updateStreak} from '../../store/actions/userActions'
+import {toggleStatus} from '../../store/actions/userActions'
 import { messaging } from '../../config/fbConfig'
 import Bookmarks from './Bookmarks';
 
@@ -37,13 +38,13 @@ class Dashboard extends Component{
         }
         if(this.props.auth.uid){
         messaging.requestPermission()
-          .then(async function() {
-            token = await messaging.getToken();
-            that.props.addToken(token)
-          })
-          .catch(function(err) {
-            console.log("Unable to get permission to notify.", err);
-          });
+            .then(async function() {
+                token = await messaging.getToken();
+                that.props.addToken(token)
+            })
+            .catch(function(err) {
+                console.log("Unable to get permission to notify.", err);
+            });
         }
         if(this.props.auth.uid){
             messaging.onTokenRefresh(() => {
@@ -60,7 +61,23 @@ class Dashboard extends Component{
             console.log('Message received. ', payload);
         });
         navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
-      } 
+        this.setupBeforeUnloadListener();
+    }
+
+    doSomethingBeforeUnload = () => {
+        if(this.props.auth.uid && this.props.profile.status===true){
+            console.log(this)
+            this.props.toggleStatus(this.props.auth.uid)
+        }
+    }
+
+    setupBeforeUnloadListener = () => {
+        window.addEventListener("beforeunload", (ev) => {
+            ev.preventDefault();
+            return this.doSomethingBeforeUnload();
+        });
+    };
+    
     render(){
         
         const { projects,auth }=this.props;
@@ -100,9 +117,10 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-      addToken:(token)=>dispatch(addToken(token)),
-      createProject:(project)=>dispatch(createProject(project)),
-      updateStreak:(data)=>dispatch(updateStreak(data))
+        addToken:(token)=>dispatch(addToken(token)),
+        createProject:(project)=>dispatch(createProject(project)),
+        updateStreak:(data)=>dispatch(updateStreak(data)),
+        toggleStatus:(id)=>dispatch(toggleStatus(id))
     }
   }
 

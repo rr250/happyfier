@@ -3,9 +3,12 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import { createChat,postMessage } from '../../store/actions/chatActions';
+import {toggleStatus} from '../../store/actions/userActions'
 import Message from './Message';
 import {Redirect} from 'react-router-dom'
 import M from 'materialize-css';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindowMinimize, faWindowMaximize, faAddressBook, faCircle } from '@fortawesome/free-solid-svg-icons'
 
 class Chat extends Component{
     messagesEnd;
@@ -32,6 +35,10 @@ class Chat extends Component{
             this.messagesEnd.scrollIntoView({ behavior: "smooth" });
             if ( this.talkInput ) {
                 this.talkInput.focus();
+            }
+            if(this.props.profile.status===false){
+                console.log(this)
+                this.props.toggleStatus(this.props.auth.uid)
             }
         }
     }
@@ -97,23 +104,23 @@ class Chat extends Component{
                         <div className="nav-wrapper purple accent-2">
                             <a className="brand-logo center" onClick={this.toggleChat}>{this.state.otherUserName?this.state.otherUserName:'Chat'}</a>
                             <ul id="nav-mobile">
-                                <li className="right"><a onClick={this.toggleChat}>Close</a></li>
-                                <li className="left"><a className='dropdown-trigger1' data-hover="true" data-target="dropdown11">Chat</a>
+                                <li className="right"><a onClick={this.toggleChat}><FontAwesomeIcon icon={faWindowMinimize}/></a></li>
+                                <li className="left"><a className='dropdown-trigger1' data-hover="true" data-target="dropdown11"><FontAwesomeIcon icon={faAddressBook}/></a>
                                     <div className="section" id='dropdown11' className='dropdown-content'>
                                         <div className="card z-depth-0">
                                             <div className="card-content">
                                                 {users && users.map((user,i)=>{
                                                     if(i%2===0){
                                                         return(
-                                                            <li key={i}>
-                                                                <span className="purple-text text-accent-2" id={user.id} onClick={this.selectUser}>{user.firstName} {user.lastName}</span>
+                                                            <li key={i} style={{width: '120%'}}>
+                                                                <span className="purple-text text-accent-2" id={user.id} onClick={this.selectUser}>{user.firstName+" "+user.lastName} <FontAwesomeIcon icon={faCircle} color ={user.status?'green':'red'}/></span>
                                                             </li>
                                                         )
                                                     }
                                                     else{
                                                         return(
-                                                            <li key={i}>
-                                                                <span className="grey-text text-darken-2" id={user.id} key={i} onClick={this.selectUser}>{user.firstName} {user.lastName}</span>
+                                                            <li key={i} style={{width: '120%'}}>
+                                                                <span className="grey-text text-darken-2" id={user.id} key={i} onClick={this.selectUser}>{user.firstName+" "+user.lastName} <FontAwesomeIcon icon={faCircle} color ={user.status?'green':'red'}/></span>
                                                             </li>
                                                         )
                                                     }
@@ -131,7 +138,7 @@ class Chat extends Component{
                         {this.state.messagesId!=='' ? this.state.messages && this.state.messages.map((message, i) => {
                             return <Message key={i} message={message} userId={this.props.auth.uid} otherUserId={this.state.otherUserId} diff={Math.floor(Math.abs(new Date(message.messageDate["seconds"]*1000).getTime()-(new Date()).getTime())/(1000 * 3600 * 24))}/>;
                         }):['1'].map((key)=>{
-                            return <Message key={0} message={{content:"Select an User to Chat with", userId:'xyz'}} userId={this.props.auth.uid} otherUserId={this.state.otherUserId} diff={0}/>;
+                            return <Message key={0} message={{content:"Select an User in Address Book to Chat with", userId:'xyz'}} userId={this.props.auth.uid} otherUserId={this.state.otherUserId} diff={0}/>;
                         })}
                         <div ref={(el) => { this.messagesEnd = el; }}
                                 style={{ float:"left", clear: "both" }}>
@@ -151,7 +158,7 @@ class Chat extends Component{
                         <div className="nav-wrapper purple accent-2">
                             <a className="brand-logo center" onClick={this.toggleChat}>Chat</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><a onClick={this.toggleChat}>Show</a></li>
+                                <li><a onClick={this.toggleChat}><FontAwesomeIcon icon={faWindowMaximize}/></a></li>
                             </ul>
                         </div>
                     </nav>
@@ -168,6 +175,7 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         createChat:(data)=>dispatch(createChat(data)),
         postMessage:(data)=>dispatch(postMessage(data)),
+        toggleStatus:(id)=>dispatch(toggleStatus(id))
     }
 }
 

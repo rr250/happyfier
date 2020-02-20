@@ -39,7 +39,9 @@ export const signUp = (newUser)=>{
                 streak:0,
                 bookMarks:[],
                 lastUpdated:new Date(),
-                token:''
+                token:'',
+                status: true,
+                email: newUser.email
             })
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
@@ -64,7 +66,9 @@ export const signUpWithGoogle = ()=>{
                 streak:0,
                 bookMarks:[],
                 lastUpdated:new Date(),
-                token:''
+                token:'',
+                status: true,
+                email: resp.user.emailId
             })}
         }).then(()=>{
             dispatch({type: 'SIGNUP_SUCCESS'})
