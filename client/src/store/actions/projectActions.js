@@ -1,59 +1,149 @@
 export const createProject=(project)=>{
     return(dispath, getState, {getFirebase, getFirestore})=>{
+        const firebase = getFirebase();
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
-        if(project.anon===false && project.diary===false){
-            firestore.collection('projects').add({
-                title:project.title,
-                content:project.content,
-                anon: project.anon,
-                authorFirstName: profile.firstName,
-                authorLastName:profile.lastName,
-                authorId:authorId,
-                diary:false,
-                createdAt:new Date(),
-                BookMarked: false
-            }).then(()=>{
-                dispath({type: 'CREATE_PROJECT', project});
-            }).catch((err)=>{
+        const storageRef = firebase.storage().ref();
+        var image = '';
+        console.log(project);
+        if(project.file!==''){
+            const uploadTask = storageRef.child(project.filePath).put(project.file, project.metadata)
+            uploadTask.on('state_changed', function(snapshot){
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+                }
+            }, (err)=>{
                 dispath({type: 'CREATE_PROJECT_ERROR', err});
-            })
-        }
-        else if(project.anon===true && project.diary===false){
-            firestore.collection('projects').add({
-                title:project.title,
-                content:project.content,
-                anon: project.anon,
-                authorFirstName: "Anonymous",
-                authorLastName: "User",
-                authorId:authorId,
-                diary:false,
-                createdAt:new Date(),
-                BookMarked: false
-            }).then(()=>{
-                dispath({type: 'CREATE_PROJECT', project});
-            }).catch((err)=>{
-                dispath({type: 'CREATE_PROJECT_ERROR', err});
-            })
+            },()=>{
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    image = downloadURL;
+                    if(project.anon===false && project.diary===false){
+                        firestore.collection('projects').add({
+                            title:project.title,
+                            content:project.content,
+                            anon: project.anon,
+                            authorFirstName: profile.firstName,
+                            authorLastName:profile.lastName,
+                            authorId:authorId,
+                            image:image,
+                            type:image!==''?'image':'content',
+                            diary:false,
+                            createdAt:new Date(),
+                            BookMarked: false
+                        }).then(()=>{
+                            dispath({type: 'CREATE_PROJECT', project});
+                        }).catch((err)=>{
+                            dispath({type: 'CREATE_PROJECT_ERROR', err});
+                        })
+                    }
+                    else if(project.anon===true && project.diary===false){
+                        firestore.collection('projects').add({
+                            title:project.title,
+                            content:project.content,
+                            anon: project.anon,
+                            authorFirstName: "Anonymous",
+                            authorLastName: "User",
+                            authorId:authorId,
+                            image:image,
+                            type:image!==''?'image':'content',
+                            diary:false,
+                            createdAt:new Date(),
+                            BookMarked: false
+                        }).then(()=>{
+                            dispath({type: 'CREATE_PROJECT', project});
+                        }).catch((err)=>{
+                            dispath({type: 'CREATE_PROJECT_ERROR', err});
+                        })
+                    }
+                    else{
+                        firestore.collection('projects').add({
+                            title:project.title,
+                            content:project.content,
+                            anon: project.anon,
+                            authorFirstName: profile.firstName,
+                            authorLastName:profile.lastName,
+                            authorId:authorId,
+                            image:image,
+                            type:image!==''?'image':'content',
+                            diary:true,
+                            createdAt:new Date(),
+                            BookMarked: false
+                        }).then(()=>{
+                            dispath({type: 'CREATE_PROJECT', project});
+                        }).catch((err)=>{
+                            dispath({type: 'CREATE_PROJECT_ERROR', err});
+                        })
+                    }
+                });
+            });
         }
         else{
-            firestore.collection('projects').add({
-                title:project.title,
-                content:project.content,
-                anon: project.anon,
-                authorFirstName: profile.firstName,
-                authorLastName:profile.lastName,
-                authorId:authorId,
-                diary:true,
-                createdAt:new Date(),
-                BookMarked: false
-            }).then(()=>{
-                dispath({type: 'CREATE_PROJECT', project});
-            }).catch((err)=>{
-                dispath({type: 'CREATE_PROJECT_ERROR', err});
-            })
-        }    
+            if(project.anon===false && project.diary===false){
+                firestore.collection('projects').add({
+                    title:project.title,
+                    content:project.content,
+                    anon: project.anon,
+                    authorFirstName: profile.firstName,
+                    authorLastName:profile.lastName,
+                    authorId:authorId,
+                    image:image,
+                    type:image!==''?'image':'content',
+                    diary:false,
+                    createdAt:new Date(),
+                    BookMarked: false
+                }).then(()=>{
+                    dispath({type: 'CREATE_PROJECT', project});
+                }).catch((err)=>{
+                    dispath({type: 'CREATE_PROJECT_ERROR', err});
+                })
+            }
+            else if(project.anon===true && project.diary===false){
+                firestore.collection('projects').add({
+                    title:project.title,
+                    content:project.content,
+                    anon: project.anon,
+                    authorFirstName: "Anonymous",
+                    authorLastName: "User",
+                    authorId:authorId,
+                    image:image,
+                    type:image!==''?'image':'content',
+                    diary:false,
+                    createdAt:new Date(),
+                    BookMarked: false
+                }).then(()=>{
+                    dispath({type: 'CREATE_PROJECT', project});
+                }).catch((err)=>{
+                    dispath({type: 'CREATE_PROJECT_ERROR', err});
+                })
+            }
+            else{
+                firestore.collection('projects').add({
+                    title:project.title,
+                    content:project.content,
+                    anon: project.anon,
+                    authorFirstName: profile.firstName,
+                    authorLastName:profile.lastName,
+                    authorId:authorId,
+                    image:image,
+                    type:image!==''?'image':'content',
+                    diary:true,
+                    createdAt:new Date(),
+                    BookMarked: false
+                }).then(()=>{
+                    dispath({type: 'CREATE_PROJECT', project});
+                }).catch((err)=>{
+                    dispath({type: 'CREATE_PROJECT_ERROR', err});
+                })
+            }  
+        }  
     }
 };
 

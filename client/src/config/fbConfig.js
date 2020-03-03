@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'         
 import "firebase/messaging"
-
+import 'firebase/storage';
 
 var config = {
     apiKey: "AIzaSyCbfgRhgHE4sA1fxx1uYN77CN_GCQ5yH1I",

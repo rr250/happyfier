@@ -3,11 +3,16 @@ import {NavLink} from 'react-router-dom'
 import Modal from 'react-responsive-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt,faUserSecret, faBook, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import uuidv4 from 'uuid/v4';
+import mimeType from 'mime-types';
 
 export class CreateProjectModal extends Component {
     state={
       title:'',
       content:'',
+      file:'',
+      metadata:'',
+      filePath:'',
       anon: false,
       diary: false,
       open: false,
@@ -41,9 +46,18 @@ export class CreateProjectModal extends Component {
   };
 
   handleChange=(e)=>{
-    this.setState({
-      [e.target.id]: e.target.value
-    });
+    if(e.target.id!=='file'){
+      this.setState({
+        [e.target.id]: e.target.value
+      });
+    }
+    else{
+      this.setState({
+        [e.target.id]: e.target.files[0],
+        metadata:{contentType:mimeType.lookup(e.target.files[0].name)},
+        filePath:`postImages/${uuidv4()}.jpg`
+      });
+    }
   }  
   handleSubmit=(e)=>{
     e.preventDefault();
@@ -91,6 +105,15 @@ export class CreateProjectModal extends Component {
               <div className="input-field">
                 <label htmlFor="content">Post Content</label>
                 <textarea type="text" id="content" className="materialize-textarea" onChange={this.handleChange}/>  
+              </div>
+              <div className="file-field input-field">
+                <div className="btn grey">
+                  <span>Choose a image</span>
+                  <input type="file" id="file" accept=".jpg,.jpeg,.png" onChange={this.handleChange} />
+                </div>
+                <div className="file-path-wrapper">
+                  <input className="file-path validate" type="text" />
+                </div>
               </div>
               <div className="input-field">
                 <label>

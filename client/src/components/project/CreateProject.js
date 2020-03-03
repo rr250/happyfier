@@ -4,11 +4,16 @@ import {createProject} from '../../store/actions/projectActions'
 import {Redirect} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret, faBook } from '@fortawesome/free-solid-svg-icons'
+import uuidv4 from 'uuid/v4';
+import mimeType from 'mime-types';
 
 export class CreateProject extends Component {
     state={
       title:'',
       content:'',
+      file:'',
+      metadata:'',
+      filePath:'',
       anon: false,
       diary: false
     }
@@ -33,16 +38,25 @@ export class CreateProject extends Component {
   };
 
   handleChange=(e)=>{
-    this.setState({
-      [e.target.id]: e.target.value
-    });
+    if(e.target.id!=='file'){
+      this.setState({
+        [e.target.id]: e.target.value
+      });
+    }
+    else{
+      this.setState({
+        [e.target.id]: e.target.files[0],
+        metadata:{contentType:mimeType.lookup(e.target.files[0].name)},
+        filePath:`postImages/${uuidv4()}.jpg`
+      });
+    }
   }  
   handleSubmit=(e)=>{
     e.preventDefault();
     if(this.isFormValid()) {
       this.setState({ errors: [], loading: true });
-    this.props.createProject(this.state)
-    this.props.history.push('/')
+      this.props.createProject(this.state)
+      this.props.history.push('/')
     }
   }  
 
@@ -76,6 +90,15 @@ export class CreateProject extends Component {
             <div className="input-field">
               <label htmlFor="content">Post Content</label>
               <textarea type="text" id="content" className="materialize-textarea" onChange={this.handleChange}/>  
+            </div>
+            <div className="file-field input-field">
+              <div className="btn grey">
+                <span>Choose a image</span>
+                <input type="file" id="file" accept=".jpg,.jpeg,.png" onChange={this.handleChange} />
+              </div>
+              <div className="file-path-wrapper">
+                <input className="file-path validate" type="text" />
+              </div>
             </div>
             <div className="input-field">
               <label>

@@ -23,9 +23,9 @@ class ProjectSummary extends Component{
 				<div className="card-action ">                  
                 </div>
 				<div style={{position: 'relative', top:"-25px"}}>			  	
-					<p className="purple-text text-accent-2 text-bold">{this.props.project.title}</p>
-					
+					<p className="purple-text text-accent-2 text-bold">{this.props.project.title}</p>					
 					<p>{this.props.project.content.substring(0,100)} ..... <FontAwesomeIcon icon={faExternalLinkAlt} onClick={this.onCloseModal} color='gray' size='xs'/></p>
+          {this.props.project.image && this.props.project.type && this.props.project.type==="image"?(<img src={this.props.project.image} alt="image" style={{width:'100%',height:'100%'}}></img>):null}
 					<p className="grey-text right">{moment(this.props.project.createdAt.toDate()).calendar()}</p>
 				</div>
               </div>

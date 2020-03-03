@@ -14,6 +14,7 @@
     "http-proxy-middleware": "^0.20.0",
     "materialize-css": "^1.0.0",
     "materialize-social": "^1.0.3",
+    "mime-types": "^2.1.26",
     "moment": "^2.24.0",
     "react": "16.12.0",
     "react-date-picker": "^7.10.0",

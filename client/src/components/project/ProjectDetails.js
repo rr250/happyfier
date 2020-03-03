@@ -41,6 +41,7 @@ class ProjectDetails extends Component {
 			<div className="card-content">
 				<div className="card-title">{project.title}</div>
 				<p>{project.content}</p>
+				{project.image && project.type && project.type==="image"?(<img src={project.image} alt="image" style={{width:'100%',height:'100%'}}></img>):null}
 			</div>
 			<div className="card-action grey lighten-4 grey-text">
 				<div>Posted by {project.authorFirstName} {project.authorLastName}</div>
