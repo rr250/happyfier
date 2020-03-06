@@ -33,7 +33,7 @@ class YourPosts extends Component{
                                     <span className="card-title">{project.title}</span>
                                     <p>{project.content}</p>
                                     <div className="input-field">
-                                        <button className="btn purple accent-2 z-depth-2 z-depth-2" onClick={(e) => this.handleDelete(project.id, e)}>Delete</button>  
+                                        <button className="btn pink lighten-2 z-depth-2 z-depth-2" onClick={(e) => this.handleDelete(project.id, e)}>Delete</button>  
                                     </div>
                                 </div>
                             </div>

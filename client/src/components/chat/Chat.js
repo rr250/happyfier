@@ -7,7 +7,7 @@ import Message from './Message';
 import {Redirect} from 'react-router-dom'
 import M from 'materialize-css';  
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindowMinimize, faWindowMaximize, faAddressBook, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faWindowMinimize, faAddressBook, faCircle } from '@fortawesome/free-solid-svg-icons'
 
 class Chat extends Component{
     messagesEnd;
@@ -100,7 +100,7 @@ class Chat extends Component{
             return (
                 <div className="conatiner" style={{ minHeight: '70%', maxHeight: '70%', width:'30%', position: 'fixed', bottom: 0, right: 0, border: '1px solid lightgray'}}>
                     <nav>
-                        <div className="nav-wrapper purple accent-2">
+                        <div className="nav-wrapper pink lighten-2">
                             <a className="brand-logo center" onClick={this.toggleChat}>{this.state.otherUserName?this.state.otherUserName:'Chat'}</a>
                             <ul id="nav-mobile">
                                 <li className="right"><a onClick={this.toggleChat}><FontAwesomeIcon icon={faWindowMinimize}/></a></li>
@@ -112,7 +112,7 @@ class Chat extends Component{
                                                     if(i%2===0){
                                                         return(
                                                             <li key={i} style={{width: '120%'}}>
-                                                                <span className="purple-text text-accent-2" id={user.id} onClick={this.selectUser}>{user.firstName+" "+user.lastName} <FontAwesomeIcon icon={faCircle} color ={user.status?'green':'red'}/></span>
+                                                                <span className="pink-text text-lighten-2" id={user.id} onClick={this.selectUser}>{user.firstName+" "+user.lastName} <FontAwesomeIcon icon={faCircle} color ={user.status?'green':'red'}/></span>
                                                             </li>
                                                         )
                                                     }
@@ -152,15 +152,8 @@ class Chat extends Component{
             );
         } else {
             return (
-                <div style={{ minHeight: '10%', maxHeight: '75%', width:'30%', position: 'fixed', bottom: 0, right: 0, border: '1px solid lightgray'}}>
-                    <nav>
-                        <div className="nav-wrapper purple accent-2">
-                            <a className="brand-logo center" onClick={this.toggleChat}>Chat</a>
-                            <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><a onClick={this.toggleChat}><FontAwesomeIcon icon={faWindowMaximize}/></a></li>
-                            </ul>
-                        </div>
-                    </nav>
+                <div style={{position: 'fixed', bottom: '5px', right: '45px'}}>
+                    <div className='btn-floating btn-large waves-effect waves-light pink lighten-2 text-bold z-depth-2' onClick={this.toggleChat}>Chat</div>
                     <div ref={(el) => { this.messagesEnd = el; }}
                             style={{ float:"left", clear: "both" }}>
                     </div>

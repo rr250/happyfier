@@ -64,7 +64,7 @@ export class GratitudeJournal extends Component {
         if(!auth.uid)
             return<Redirect to='/signin'/>    
     return (
-      <div className="container z-depth-2 purple lighten-5" style={{width:'87%', borderRadius:5}}>
+      <div className="container z-depth-2 pink lighten-5" style={{width:'87%', borderRadius:5}}>
         <form onSubmit={(e) => this.handleSubmit(profile, e)}>
           <h5 className="grey-text text-darken-3 text-bold">Gratitude Journal</h5>
             <div className="input-field">
@@ -73,7 +73,7 @@ export class GratitudeJournal extends Component {
             </div>
             {this.state.content &&(
             <div className="input-field">
-              <button className="btn purple accent-2 z-depth-2">Create</button>  
+              <button className="btn pink lighten-2 z-depth-2">Create</button>  
             </div>
             )}
             <div className="red-text center">

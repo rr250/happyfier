@@ -4,11 +4,11 @@ import moment from 'moment'
 const Message = (props) => {
     return (
         <div className="col s12 m8 offset-m2 l6 offset-l3">
-            <div className="card-panel purple lighten-5 z-depth-1">
+            <div className="card-panel pink lighten-5 z-depth-1">
                 <div className="row valign-wrapper">
                     {props.message.userId===props.otherUserId &&
                     <div className="col s2">
-                        <a href="/" className="btn btn-floating white purple-text text-accent-2 text-bold z-depth-2 waves-effect waves-light">{props.message.userInitials}</a>
+                        <a href="/" className="btn btn-floating white pink-text text-lighten-2 text-bold z-depth-2 waves-effect waves-light">{props.message.userInitials}</a>
                     </div>
                     }
                     <div className="col s10">
@@ -21,7 +21,7 @@ const Message = (props) => {
                     </div>
                     {props.message.userId===props.userId &&
                     <div className="col s2">
-                        <a href="/" className="btn btn-floating white purple-text text-accent-2 text-bold z-depth-2 waves-effect waves-light">{props.message.userInitials}</a>
+                        <a href="/" className="btn btn-floating white pink-text text-lighten-2 text-bold z-depth-2 waves-effect waves-light">{props.message.userInitials}</a>
                     </div>
                     }
                 </div>

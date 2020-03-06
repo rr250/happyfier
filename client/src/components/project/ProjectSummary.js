@@ -15,18 +15,19 @@ class ProjectSummary extends Component{
         <div>
         <div className="card z-depth-0" style={{opacity:'transparent'}}>
           <div className= "card-content grey-text text-darken-3" style={{opacity:'transparent'}}>
-            <div className="card-panel" style={{ borderWidth:'1px', borderStyle:'solid', borderColor:'rgb(212, 212, 212)', borderLeftColor:'#e040fb', borderLeftWidth:'5px', borderLeftStyle:'solid', boxShadow:"0px 0px 0px 0px", borderTopRightRadius:"7px", borderBottomRightRadius:"7px"}}>
+            <div className="card-panel" style={{ borderWidth:'1px', borderStyle:'solid', borderColor:'rgb(212, 212, 212)', borderLeftColor:'#f06292', borderLeftWidth:'5px', borderLeftStyle:'solid', boxShadow:"0px 0px 0px 0px", borderTopRightRadius:"7px", borderBottomRightRadius:"7px"}}>
 				<p className="black-text">Posted by {this.props.project.authorFirstName} {this.props.project.authorLastName}
-				<i className="material-icons" onClick={this.BookMarkToggle} style={{position: 'absolute', left: '97%', marginLeft: '-50px', color:'#e040fb'}}>{this.props.profile.bookMarks && this.props.profile.bookMarks.includes(this.props.project.id)?"bookmark":"bookmark_border"}</i></p>
+				<i className="material-icons" onClick={this.BookMarkToggle} style={{position: 'absolute', left: '97%', marginLeft: '-50px', color:'#f06292'}}>{this.props.profile.bookMarks && this.props.profile.bookMarks.includes(this.props.project.id)?"bookmark":"bookmark_border"}</i></p>
                 
 				<br/>
 				<div className="card-action ">                  
-                </div>
+        </div>
 				<div style={{position: 'relative', top:"-25px"}}>			  	
-					<p className="purple-text text-accent-2 text-bold">{this.props.project.title}</p>					
-					<p>{this.props.project.content.substring(0,100)} ..... <FontAwesomeIcon icon={faExternalLinkAlt} onClick={this.onCloseModal} color='gray' size='xs'/></p>
-          {this.props.project.image && this.props.project.type && this.props.project.type==="image"?(<img src={this.props.project.image} alt="image" style={{width:'100%',height:'100%'}}></img>):null}
-					<p className="grey-text right">{moment(this.props.project.createdAt.toDate()).calendar()}</p>
+					<p className="pink-text text-lighten-2 text-bold">{this.props.project.title}</p>					
+					<p>{this.props.project.content.length>100?this.props.project.content.substring(0,100)+" ..... ":this.props.project.content}</p>
+          {this.props.project.image && this.props.project.type && this.props.project.type==="image"?(<img src={this.props.project.image} alt="image" style={{width:'auto',maxHeight:'200px', maxWidth:'100%'}}></img>):null}
+					<br />
+          <p className="grey-text right">{moment(this.props.project.createdAt.toDate()).calendar()}</p>
 				</div>
               </div>
             </div>

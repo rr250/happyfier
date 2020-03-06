@@ -20,7 +20,7 @@ export class SignedInLinks extends Component {
                 <li><NavLink to='/gratitudejournal'><FontAwesomeIcon icon={faFire} /> {this.props.profile.streak}</NavLink></li>
                 <li><Notifications notifications={this.props.notifications}/></li>
                 <li><a onClick={this.props.signOut}><FontAwesomeIcon icon={faSignOutAlt}/></a></li>
-                <li><NavLink to='/yourposts' className='btn btn-floating white purple-text text-accent-2 text-bold z-depth-2'>{this.props.profile.initials}</NavLink></li>
+                <li><NavLink to='/yourposts' className='btn btn-floating white pink-text text-lighten-2 text-bold z-depth-2'>{this.props.profile.initials}</NavLink></li>
             </ul>
         )
     }

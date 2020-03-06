@@ -37,11 +37,11 @@ class ProjectDetails extends Component {
 			<br/>
 			<br/>
 			<br/>
-			<div className="card z-depth-0"style={{ borderWidth:'1px', borderStyle:'solid', borderColor:'rgb(212, 212, 212)', borderLeftColor:'#e040fb', borderLeftWidth:'5px', borderLeftStyle:'solid'}}>
+			<div className="card z-depth-0"style={{ borderWidth:'1px', borderStyle:'solid', borderColor:'rgb(212, 212, 212)', borderLeftColor:'#f06292', borderLeftWidth:'5px', borderLeftStyle:'solid'}}>
 			<div className="card-content">
 				<div className="card-title">{project.title}</div>
 				<p>{project.content}</p>
-				{project.image && project.type && project.type==="image"?(<img src={project.image} alt="image" style={{width:'100%',height:'100%'}}></img>):null}
+				{project.image && project.type && project.type==="image"?(<img src={project.image} alt="image" style={{width:'auto',maxHeight:'500px', maxWidth:'100%'}}></img>):null}
 			</div>
 			<div className="card-action grey lighten-4 grey-text">
 				<div>Posted by {project.authorFirstName} {project.authorLastName}</div>
@@ -56,7 +56,7 @@ class ProjectDetails extends Component {
 					return(
 						<div className="card z-depth-0"style={{ borderWidth:'1px', borderStyle:'solid', borderColor:'rgb(212, 212, 212)', boxShadow:"0px 0px 0px 0px", borderRadius:"7px"}}>
 							<div className="card-content">
-							<span className="purple-text text-accent-2">{comment["commenterFirstName"]} {comment["commenterLastName"]}
+							<span className="purple-text text-lighten-2">{comment["commenterFirstName"]} {comment["commenterLastName"]}
 							<span className="grey-text text-darken-2"> : {comment["comment"]}</span>
 							<p className="grey-text note-date">
 								{moment(comment["commentDate"].toDate()).fromNow()}

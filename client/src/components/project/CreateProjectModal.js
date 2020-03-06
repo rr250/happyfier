@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
 import Modal from 'react-responsive-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt,faUserSecret, faBook, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt,faUserSecret, faBook, faExternalLinkAlt, faCameraRetro } from '@fortawesome/free-solid-svg-icons'
 import uuidv4 from 'uuid/v4';
 import mimeType from 'mime-types';
 
@@ -107,10 +107,10 @@ export class CreateProjectModal extends Component {
                 <textarea type="text" id="content" className="materialize-textarea" onChange={this.handleChange}/>  
               </div>
               <div className="file-field input-field">
-                <div className="btn grey">
-                  <span>Choose a image</span>
-                  <input type="file" id="file" accept=".jpg,.jpeg,.png" onChange={this.handleChange} />
-                </div>
+              <div className="btn transparent grey-text" style={{opacity:'transparent', boxShadow:'0 0', paddingLeft:0}}>
+                <FontAwesomeIcon icon={faCameraRetro} size='2x' style={{top:'10px', position:'relative'}}/>
+                <input type="file" id="file" accept=".jpg,.jpeg,.png" onChange={this.handleChange} />
+              </div>
                 <div className="file-path-wrapper">
                   <input className="file-path validate" type="text" />
                 </div>
@@ -130,7 +130,7 @@ export class CreateProjectModal extends Component {
                 <br/>
               </div>
               <div className="input-field">
-                <button className="btn purple accent-2 z-depth-2 z-depth-2" onClick={(e) => {this.handleSubmit(e)}}>Create</button>  
+                <button className="btn pink lighten-2 z-depth-2 z-depth-2" onClick={(e) => {this.handleSubmit(e)}}>Create</button>  
               </div>
               <div className="red-text center">
                 {this.errors!==[] && (
